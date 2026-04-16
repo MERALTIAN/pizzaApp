@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PizzApp | Gestión inteligente para pizzerías</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2C3E50',
+                        secondary: '#10B981',
+                        dark: '#111827',
+                        lightbg: '#F5F5F5'
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        details > summary { list-style: none; }
+        details > summary::-webkit-details-marker { display: none; }
+
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.78);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .animate-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .team-photo {
+            object-fit: cover;
+        }
+
+        .pizza-mascot {
+            animation: floatPizza 2.8s ease-in-out infinite;
+        }
+
+        @keyframes floatPizza {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+    </style>
+</head>
+
+<body class="font-sans text-gray-800 bg-lightbg antialiased selection:bg-primary selection:text-white overflow-x-hidden">
+
+    <!-- NAV -->
+    <header class="fixed w-full glass-effect shadow-sm z-50 transition-all duration-500 transform translate-y-0" id="main-header">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <a href="#inicio" class="flex items-center gap-2 group">
+                    <div class="w-9 h-9 bg-primary rounded-lg flex items-center justify-center text-white font-bold group-hover:rotate-12 transition-transform duration-300">
+                        🍕
+                    </div>
+                    <span class="font-bold text-xl tracking-tight text-dark group-hover:text-primary transition-colors duration-300">
+                        PizzApp
+                    </span>
+                </a>
+
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#problema" class="relative text-gray-600 hover:text-primary transition-colors text-sm font-medium group">
+                        Problema
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="#solucion" class="relative text-gray-600 hover:text-primary transition-colors text-sm font-medium group">
+                        Solución
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="#funcionalidades" class="relative text-gray-600 hover:text-primary transition-colors text-sm font-medium group">
+                        Funciones
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="#kpis" class="relative text-gray-600 hover:text-primary transition-colors text-sm font-medium group">
+                        KPIs
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="#faq" class="relative text-gray-600 hover:text-primary transition-colors text-sm font-medium group">
+                        FAQ
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="#chatbot" class="relative text-gray-600 hover:text-primary transition-colors text-sm font-medium group">
+                        Chatbot
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                </nav>
+
+                <a href="#cta-final" class="bg-primary text-white px-5 py-2 rounded-full font-medium hover:bg-slate-700 hover:shadow-lg hover:-translate-y-0.5 transform transition-all duration-300 text-sm">
+                    Únete ahora
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO -->
+    <section id="inicio" class="pt-32 pb-20 lg:pt-40 lg:pb-28 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="text-center lg:text-left z-10 animate-on-scroll">
+                    <div class="inline-block bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full text-sm font-semibold mb-6 tracking-wide">
+                        Aplicación híbrida para gestión integral de pizzerías
+                    </div>
+
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-dark leading-tight mb-6 tracking-tight">
+                        Optimiza pedidos, inventario y clientes con
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
+                            PizzApp
+                        </span>
+                    </h1>
+
+                    <p class="text-lg md:text-xl text-gray-600 mb-8 max-w-2xl mx-auto lg:mx-0">
+                        PizzApp es una plataforma diseñada para mejorar la eficiencia operativa de una pizzería,
+                        reducir errores en pedidos, controlar inventario y apoyar la toma de decisiones con reportes y métricas.
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                        <a href="#cta-final" class="group bg-primary text-white px-8 py-3 rounded-full font-bold text-lg hover:bg-slate-700 transition-all duration-300 shadow-lg hover:shadow-slate-500/40 hover:-translate-y-1 flex items-center justify-center gap-2 overflow-hidden relative">
+                            <span class="absolute top-0 left-0 w-full h-full bg-white opacity-0 group-hover:animate-[ping_0.5s_ease-in-out]"></span>
+                            <i data-lucide="rocket" class="w-5 h-5 group-hover:scale-110 transition-transform"></i>
+                            Conocer la app
+                        </a>
+
+                        <p class="text-sm text-gray-500 mt-3 sm:mt-0 sm:self-center">
+                            Gestión más rápida, menos errores y mejores decisiones.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="relative mx-auto w-full max-w-md lg:max-w-none animate-on-scroll delay-200">
+                    <div class="absolute -top-10 -right-10 w-40 h-40 bg-secondary/20 rounded-full blur-3xl animate-pulse-slow"></div>
+                    <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-primary/20 rounded-full blur-3xl animate-pulse-slow" style="animation-delay: 1s;"></div>
+
+                    <div class="aspect-[9/16] bg-gray-200 rounded-[3rem] shadow-2xl border-[8px] border-gray-800 flex items-center justify-center relative overflow-hidden group hover:border-primary transition-colors duration-500">
+                        <div class="absolute top-0 w-32 h-6 bg-gray-800 rounded-b-xl"></div>
+                        <div class="text-center p-6 transform group-hover:scale-105 transition-transform duration-500">
+                            <i data-lucide="smartphone" class="w-16 h-16 text-gray-400 mx-auto mb-4 animate-bounce"></i>
+                            <p class="text-gray-500 font-medium px-4">
+                                Aquí puedes poner una captura o mockup principal de PizzApp.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROBLEMA -->
+    <section id="problema" class="py-20 bg-dark text-white">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6 animate-on-scroll">
+                El problema que resuelve PizzApp
+            </h2>
+            <p class="text-xl text-gray-400 mb-10 animate-on-scroll delay-100">
+                Actualmente, muchas pizzerías gestionan pedidos e inventario de forma manual,
+                lo que provoca errores, pérdida de insumos, retrasos y poca claridad para decidir.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 text-left mt-12">
+                <div class="bg-gray-800 p-6 rounded-2xl border border-gray-700 hover:bg-gray-700 hover:-translate-y-2 hover:shadow-xl transition-all duration-300 animate-on-scroll">
+                    <div class="w-12 h-12 bg-red-500/20 rounded-xl flex items-center justify-center text-red-400 mb-4">
+                        <i data-lucide="x-circle" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Errores en pedidos</h3>
+                    <p class="text-gray-400">La toma manual de pedidos aumenta equivocaciones y retrabajo.</p>
+                </div>
+
+                <div class="bg-gray-800 p-6 rounded-2xl border border-gray-700 hover:bg-gray-700 hover:-translate-y-2 hover:shadow-xl transition-all duration-300 animate-on-scroll delay-100">
+                    <div class="w-12 h-12 bg-red-500/20 rounded-xl flex items-center justify-center text-red-400 mb-4">
+                        <i data-lucide="package-x" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Falta de inventario</h3>
+                    <p class="text-gray-400">El control deficiente de insumos genera faltantes y desorden.</p>
+                </div>
+
+                <div class="bg-gray-800 p-6 rounded-2xl border border-gray-700 hover:bg-gray-700 hover:-translate-y-2 hover:shadow-xl transition-all duration-300 animate-on-scroll delay-200">
+                    <div class="w-12 h-12 bg-red-500/20 rounded-xl flex items-center justify-center text-red-400 mb-4">
+                        <i data-lucide="trash-2" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Pérdida de insumos</h3>
+                    <p class="text-gray-400">La poca trazabilidad favorece desperdicios y vencimientos.</p>
+                </div>
+
+                <div class="bg-gray-800 p-6 rounded-2xl border border-gray-700 hover:bg-gray-700 hover:-translate-y-2 hover:shadow-xl transition-all duration-300 animate-on-scroll delay-300">
+                    <div class="w-12 h-12 bg-red-500/20 rounded-xl flex items-center justify-center text-red-400 mb-4">
+                        <i data-lucide="clock-3" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Atención lenta</h3>
+                    <p class="text-gray-400">Los retrasos afectan la experiencia del cliente y el rendimiento del negocio.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SOLUCIÓN -->
+    <section id="solucion" class="py-24 bg-white overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16 animate-on-scroll">
+                <h2 class="text-primary font-semibold tracking-wide uppercase text-sm mb-2">La solución</h2>
+                <h3 class="text-3xl md:text-4xl font-bold text-dark mb-4">
+                    Una app híbrida para administrar la pizzería de forma inteligente
+                </h3>
+                <p class="text-lg text-gray-600">
+                    PizzApp integra pedidos, inventario, clientes y reportes estadísticos en una sola plataforma,
+                    ayudando a mejorar el control de recursos, la eficiencia operativa y la satisfacción del cliente.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+                <div class="order-2 md:order-1 animate-on-scroll">
+                    <h4 class="text-2xl font-bold mb-4">Beneficios principales</h4>
+                    <p class="text-gray-600 mb-6">
+                        La aplicación no solo organiza procesos, también ayuda a transformar información en decisiones útiles.
+                    </p>
+                    <ul class="space-y-4">
+                        <li class="flex items-center gap-3 text-gray-700 p-2 hover:bg-gray-50 rounded-lg transition-colors">
+                            <div class="bg-green-100 p-1 rounded-full">
+                                <i data-lucide="check" class="text-secondary w-4 h-4"></i>
+                            </div>
+                            Reduce errores en el registro y seguimiento de pedidos.
+                        </li>
+                        <li class="flex items-center gap-3 text-gray-700 p-2 hover:bg-gray-50 rounded-lg transition-colors">
+                            <div class="bg-green-100 p-1 rounded-full">
+                                <i data-lucide="check" class="text-secondary w-4 h-4"></i>
+                            </div>
+                            Mejora el control de ingredientes, stock y pérdidas.
+                        </li>
+                        <li class="flex items-center gap-3 text-gray-700 p-2 hover:bg-gray-50 rounded-lg transition-colors">
+                            <div class="bg-green-100 p-1 rounded-full">
+                                <i data-lucide="check" class="text-secondary w-4 h-4"></i>
+                            </div>
+                            Permite visualizar reportes y métricas para decidir mejor.
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="order-1 md:order-2 bg-indigo-50 rounded-2xl aspect-video flex items-center justify-center border border-indigo-100 group overflow-hidden cursor-pointer animate-on-scroll delay-200">
+                    <div class="transform group-hover:scale-110 transition-transform duration-700 text-center p-6">
+                        <i data-lucide="layout-dashboard" class="w-12 h-12 text-indigo-300 mx-auto mb-2"></i>
+                        <p class="text-indigo-400 font-medium">
+                            Aquí puedes poner un pantallazo del panel, reportes o menú principal.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- OBJETIVOS -->
+    <section class="py-20 bg-gray-50 border-t border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12 animate-on-scroll">
+                <h2 class="text-3xl font-bold text-dark">Objetivos del proyecto</h2>
+                <p class="text-gray-600 mt-4 max-w-3xl mx-auto">
+                    El proyecto busca desarrollar una aplicación híbrida que optimice la gestión de pedidos,
+                    inventario y clientes, utilizando React, Vite y Supabase como tecnologías propuestas.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 animate-on-scroll">
+                    <h3 class="text-xl font-bold text-dark mb-4 flex items-center gap-2">
+                        <i data-lucide="target" class="text-primary w-5 h-5"></i>
+                        Objetivo general
+                    </h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Desarrollar una aplicación móvil híbrida que optimice la gestión de pedidos,
+                        inventario y clientes para mejorar la eficiencia operativa y la satisfacción del cliente.
+                    </p>
+                </div>
+
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 animate-on-scroll delay-100">
+                    <h3 class="text-xl font-bold text-dark mb-4 flex items-center gap-2">
+                        <i data-lucide="list-checks" class="text-secondary w-5 h-5"></i>
+                        Objetivos específicos
+                    </h3>
+                    <ul class="space-y-3 text-gray-600">
+                        <li>• Implementar control de inventario para reducir pérdidas por caducidad.</li>
+                        <li>• Diseñar un módulo de pedidos en línea con interfaz intuitiva.</li>
+                        <li>• Integrar dashboards y reportes estadísticos para apoyar decisiones.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CÓMO FUNCIONA -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl font-bold text-dark mb-12 animate-on-scroll">¿Cómo funciona PizzApp?</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+                <div class="hidden md:block absolute top-12 left-[15%] right-[15%] h-0.5 bg-gray-200 -z-10 overflow-hidden">
+                    <div class="w-full h-full bg-primary origin-left scale-x-0 transition-transform duration-1000 ease-out animate-on-scroll-line" id="progress-line"></div>
+                </div>
+
+                <div class="flex flex-col items-center animate-on-scroll">
+                    <div class="w-24 h-24 bg-white rounded-full flex items-center justify-center shadow-lg border border-gray-100 mb-6 relative hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group">
+                        <span class="absolute -top-2 -right-2 bg-primary text-white w-8 h-8 rounded-full flex items-center justify-center font-bold shadow-sm">1</span>
+                        <i data-lucide="user-plus" class="w-10 h-10 text-primary group-hover:scale-110 transition-transform"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Registro e ingreso</h3>
+                    <p class="text-gray-600 text-sm px-4">El usuario puede registrarse e iniciar sesión para acceder a la plataforma.</p>
+                </div>
+
+                <div class="flex flex-col items-center animate-on-scroll delay-100">
+                    <div class="w-24 h-24 bg-white rounded-full flex items-center justify-center shadow-lg border border-gray-100 mb-6 relative hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group">
+                        <span class="absolute -top-2 -right-2 bg-primary text-white w-8 h-8 rounded-full flex items-center justify-center font-bold shadow-sm">2</span>
+                        <i data-lucide="shopping-cart" class="w-10 h-10 text-primary group-hover:rotate-6 transition-transform duration-500"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Gestión operativa</h3>
+                    <p class="text-gray-600 text-sm px-4">Permite tomar pedidos, administrar menú, controlar inventario y aplicar promociones.</p>
+                </div>
+
+                <div class="flex flex-col items-center animate-on-scroll delay-200">
+                    <div class="w-24 h-24 bg-white rounded-full flex items-center justify-center shadow-lg border border-gray-100 mb-6 relative hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group">
+                        <span class="absolute -top-2 -right-2 bg-primary text-white w-8 h-8 rounded-full flex items-center justify-center font-bold shadow-sm">3</span>
+                        <i data-lucide="bar-chart-3" class="w-10 h-10 text-primary group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Análisis y decisión</h3>
+                    <p class="text-gray-600 text-sm px-4">La app muestra KPIs, ventas y comportamiento del negocio para facilitar decisiones estratégicas.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FUNCIONALIDADES -->
+    <section id="funcionalidades" class="py-20 bg-indigo-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12 animate-on-scroll">
+                <h2 class="text-3xl font-bold text-dark">Funcionalidades principales</h2>
+                <p class="text-gray-600 mt-4 max-w-3xl mx-auto">
+                    La propuesta incluye funciones para clientes, empleados y administradores.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-lg transition-all animate-on-scroll">
+                    <h3 class="font-bold text-lg mb-2">Inicio de sesión y registro</h3>
+                    <p class="text-gray-600 text-sm">Acceso seguro para clientes y gestión de cuentas.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-lg transition-all animate-on-scroll delay-75">
+                    <h3 class="font-bold text-lg mb-2">Gestión de menú</h3>
+                    <p class="text-gray-600 text-sm">Agregar, editar y eliminar pizzas y productos del menú.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-lg transition-all animate-on-scroll delay-100">
+                    <h3 class="font-bold text-lg mb-2">Carrito de compra</h3>
+                    <p class="text-gray-600 text-sm">Permite revisar productos y cantidades antes de confirmar el pedido.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-lg transition-all animate-on-scroll delay-150">
+                    <h3 class="font-bold text-lg mb-2">Realización y estado de pedidos</h3>
+                    <p class="text-gray-600 text-sm">Registrar pedidos, generar número y actualizar su estado.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-lg transition-all animate-on-scroll delay-200">
+                    <h3 class="font-bold text-lg mb-2">Control de inventario</h3>
+                    <p class="text-gray-600 text-sm">Registrar ingredientes, actualizar stock y generar alertas por bajo inventario.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-lg transition-all animate-on-scroll delay-300">
+                    <h3 class="font-bold text-lg mb-2">Reportes, promociones y calificaciones</h3>
+                    <p class="text-gray-600 text-sm">Visualizar ventas, crear promociones y permitir calificar el servicio.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- KPIS -->
+    <section id="kpis" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl font-bold text-dark mb-4 animate-on-scroll">Métricas y KPIs del negocio</h2>
+            <p class="text-gray-600 mb-12 max-w-3xl mx-auto animate-on-scroll delay-100">
+                PizzApp propone indicadores para medir tiempos, ventas, inventario, pérdidas y fidelización de clientes.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-left">
+                <div class="bg-gray-50 p-6 rounded-2xl shadow-sm border border-gray-100 animate-on-scroll">
+                    <h3 class="font-bold text-lg mb-3">Pedidos y atención</h3>
+                    <ul class="text-gray-600 text-sm space-y-2">
+                        <li>• Tiempo promedio de preparación.</li>
+                        <li>• Pedidos dentro del tiempo objetivo.</li>
+                        <li>• Pedidos que superan el tiempo estimado.</li>
+                    </ul>
+                </div>
+
+                <div class="bg-gray-50 p-6 rounded-2xl shadow-sm border border-gray-100 animate-on-scroll delay-100">
+                    <h3 class="font-bold text-lg mb-3">Ventas</h3>
+                    <ul class="text-gray-600 text-sm space-y-2">
+                        <li>• Productos más vendidos.</li>
+                        <li>• Top mensual de productos.</li>
+                        <li>• Ingresos generados por producto.</li>
+                    </ul>
+                </div>
+
+                <div class="bg-gray-50 p-6 rounded-2xl shadow-sm border border-gray-100 animate-on-scroll delay-200">
+                    <h3 class="font-bold text-lg mb-3">Inventario</h3>
+                    <ul class="text-gray-600 text-sm space-y-2">
+                        <li>• Porcentaje de ingredientes en stock.</li>
+                        <li>• Tiempo de reabastecimiento.</li>
+                        <li>• Número de veces sin stock.</li>
+                    </ul>
+                </div>
+
+                <div class="bg-gray-50 p-6 rounded-2xl shadow-sm border border-gray-100 animate-on-scroll">
+                    <h3 class="font-bold text-lg mb-3">Pérdidas</h3>
+                    <ul class="text-gray-600 text-sm space-y-2">
+                        <li>• Porcentaje de ingredientes caducados.</li>
+                        <li>• Costo de productos vencidos.</li>
+                        <li>• Cantidad de insumos desechados.</li>
+                    </ul>
+                </div>
+
+                <div class="bg-gray-50 p-6 rounded-2xl shadow-sm border border-gray-100 animate-on-scroll delay-100">
+                    <h3 class="font-bold text-lg mb-3">Clientes</h3>
+                    <ul class="text-gray-600 text-sm space-y-2">
+                        <li>• Porcentaje de recompra.</li>
+                        <li>• Número promedio de compras por cliente.</li>
+                        <li>• Clientes nuevos vs. recurrentes.</li>
+                    </ul>
+                </div>
+
+                <div class="bg-gray-50 p-6 rounded-2xl shadow-sm border border-gray-100 animate-on-scroll delay-200">
+                    <h3 class="font-bold text-lg mb-3">Decisiones</h3>
+                    <ul class="text-gray-600 text-sm space-y-2">
+                        <li>• Reportes automáticos.</li>
+                        <li>• Visualización de dashboards.</li>
+                        <li>• Monitoreo y retroalimentación.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ALCANCE -->
+    <section class="py-20 bg-gray-50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12 animate-on-scroll">
+                <h2 class="text-3xl font-bold text-dark">Alcance y límites</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white p-8 rounded-2xl shadow-sm border-l-4 border-secondary animate-on-scroll">
+                    <h3 class="font-bold text-xl mb-3 flex items-center gap-2">
+                        <i data-lucide="check-circle-2" class="text-secondary"></i>
+                        Alcance
+                    </h3>
+                    <ul class="text-gray-600 space-y-2">
+                        <li>• Gestión de pedidos e inventario.</li>
+                        <li>• Generación de reportes.</li>
+                        <li>• Implementación de chatbot.</li>
+                        <li>• Desarrollo de aplicación híbrida.</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white p-8 rounded-2xl shadow-sm border-l-4 border-red-500 animate-on-scroll delay-100">
+                    <h3 class="font-bold text-xl mb-3 flex items-center gap-2">
+                        <i data-lucide="x-octagon" class="text-red-500"></i>
+                        Límites
+                    </h3>
+                    <ul class="text-gray-600 space-y-2">
+                        <li>• No contempla pagos en línea.</li>
+                        <li>• No incluye geolocalización en esta fase.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TECNOLOGÍA -->
+    <section class="py-20 bg-white">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl font-bold text-dark mb-4 animate-on-scroll">Tecnología propuesta</h2>
+            <p class="text-gray-600 max-w-4xl mx-auto animate-on-scroll delay-100">
+                La propuesta tecnológica contempla React para la interfaz, Vite para un desarrollo rápido
+                y Supabase como backend en la nube, facilitando base de datos, autenticación y almacenamiento.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10">
+                <div class="bg-gray-50 p-6 rounded-2xl border border-gray-100 animate-on-scroll">
+                    <h3 class="font-bold text-lg mb-2">React</h3>
+                    <p class="text-gray-600 text-sm">Interfaz dinámica basada en componentes reutilizables.</p>
+                </div>
+                <div class="bg-gray-50 p-6 rounded-2xl border border-gray-100 animate-on-scroll delay-100">
+                    <h3 class="font-bold text-lg mb-2">Vite</h3>
+                    <p class="text-gray-600 text-sm">Compilación rápida y mejor experiencia en desarrollo.</p>
+                </div>
+                <div class="bg-gray-50 p-6 rounded-2xl border border-gray-100 animate-on-scroll delay-200">
+                    <h3 class="font-bold text-lg mb-2">Supabase</h3>
+                    <p class="text-gray-600 text-sm">Base de datos, autenticación y servicios backend en la nube.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="py-20 bg-gray-50">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-center text-dark mb-12 animate-on-scroll">
+                Preguntas frecuentes
+            </h2>
+
+            <div class="space-y-4">
+                <details class="group bg-white rounded-xl cursor-pointer shadow-sm hover:shadow-md transition-all duration-300 animate-on-scroll">
+                    <summary class="flex justify-between items-center font-medium p-6">
+                        <span class="text-lg group-hover:text-primary transition-colors">
+                            ¿Qué resuelve PizzApp?
+                        </span>
+                        <span class="transition-transform duration-300 group-open:rotate-180 bg-gray-50 p-1 rounded-full shadow-sm">
+                            <i data-lucide="chevron-down" class="w-5 h-5 text-gray-500"></i>
+                        </span>
+                    </summary>
+                    <div class="text-gray-600 px-6 pb-6 pt-0 animate-[fadeIn_0.3s_ease-in-out]">
+                        Centraliza la gestión de pedidos, inventario, clientes y reportes para reducir errores y mejorar la operación.
+                    </div>
+                </details>
+
+                <details class="group bg-white rounded-xl cursor-pointer shadow-sm hover:shadow-md transition-all duration-300 animate-on-scroll">
+                    <summary class="flex justify-between items-center font-medium p-6">
+                        <span class="text-lg group-hover:text-primary transition-colors">
+                            ¿Quiénes usarán la aplicación?
+                        </span>
+                        <span class="transition-transform duration-300 group-open:rotate-180 bg-gray-50 p-1 rounded-full shadow-sm">
+                            <i data-lucide="chevron-down" class="w-5 h-5 text-gray-500"></i>
+                        </span>
+                    </summary>
+                    <div class="text-gray-600 px-6 pb-6 pt-0 animate-[fadeIn_0.3s_ease-in-out]">
+                        Está orientada a clientes, empleados y administradores de una pizzería, cada uno con funciones distintas.
+                    </div>
+                </details>
+
+                <details class="group bg-white rounded-xl cursor-pointer shadow-sm hover:shadow-md transition-all duration-300 animate-on-scroll">
+                    <summary class="flex justify-between items-center font-medium p-6">
+                        <span class="text-lg group-hover:text-primary transition-colors">
+                            ¿Qué información ayudará a visualizar?
+                        </span>
+                        <span class="transition-transform duration-300 group-open:rotate-180 bg-gray-50 p-1 rounded-full shadow-sm">
+                            <i data-lucide="chevron-down" class="w-5 h-5 text-gray-500"></i>
+                        </span>
+                    </summary>
+                    <div class="text-gray-600 px-6 pb-6 pt-0 animate-[fadeIn_0.3s_ease-in-out]">
+                        Ventas, productos más vendidos, tiempos de atención, estado de inventario, pérdidas y fidelización de clientes.
+                    </div>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- EQUIPO -->
+    <section id="equipo" class="py-20 bg-white border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="animate-on-scroll">
+                <h2 class="text-3xl font-bold text-dark mb-4">Equipo del proyecto</h2>
+                <p class="text-gray-600 mb-12 max-w-3xl mx-auto">
+                    PizzApp es desarrollado por estudiantes de Ingeniería en Sistemas de Información, Grupo 4.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                <div class="bg-gray-50 p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 animate-on-scroll delay-100">
+                    <div class="w-28 h-28 mx-auto mb-6 rounded-full overflow-hidden border-4 border-white shadow-md">
+                        <img src="img/bryan.jpg.jpeg" alt="Bryan Josué Bermúdez" class="w-full h-full team-photo">
+                    </div>
+                    <h3 class="text-xl font-bold text-dark mb-1">Bryan Josué Bermúdez</h3>
+                    <p class="text-secondary font-medium text-sm mb-4">Frontend</p>
+                    <p class="text-gray-500 text-sm leading-relaxed">
+                        Encargado del diseño y construcción de la interfaz visual de la aplicación.
+                    </p>
+                </div>
+
+                <div class="bg-gray-50 p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 animate-on-scroll delay-200">
+                    <div class="w-28 h-28 mx-auto mb-6 rounded-full overflow-hidden border-4 border-white shadow-md">
+                        <img src="img/xaviera.jpg.jpeg" alt="Julissa Xaviera Pérez Quezada" class="w-full h-full team-photo">
+                    </div>
+                    <h3 class="text-xl font-bold text-dark mb-1">Julissa Xaviera Pérez Quezada</h3>
+                    <p class="text-secondary font-medium text-sm mb-4">QA / Diseño</p>
+                    <p class="text-gray-500 text-sm leading-relaxed">
+                        Apoya en validación, experiencia visual y control de calidad del producto.
+                    </p>
+                </div>
+
+                <div class="bg-gray-50 p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 animate-on-scroll delay-300">
+                    <div class="w-28 h-28 mx-auto mb-6 rounded-full overflow-hidden border-4 border-white shadow-md">
+                        <img src="img/jeremy.jpg.jpeg" alt="Jeremy José Álvarez Obando" class="w-full h-full team-photo">
+                    </div>
+                    <h3 class="text-xl font-bold text-dark mb-1">Jeremy José Álvarez Obando</h3>
+                    <p class="text-secondary font-medium text-sm mb-4">Backend / Scrum</p>
+                    <p class="text-gray-500 text-sm leading-relaxed">
+                        Participa en coordinación del proyecto y lógica funcional de la solución.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CHATBOT -->
+    <section id="chatbot" class="py-20 bg-gray-100">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+                
+                <div class="animate-on-scroll text-center lg:text-left">
+                    <div class="inline-flex items-center gap-3 bg-yellow-100 text-orange-700 px-4 py-2 rounded-full font-semibold mb-6">
+                        <span class="pizza-mascot text-3xl">🍕</span>
+                        Nuestra mascota pizzera
+                    </div>
+
+                    <h2 class="text-3xl md:text-4xl font-bold text-dark mb-4">
+                        ¿Quieres saber más sobre nosotros?
+                    </h2>
+
+                    <p class="text-lg text-gray-600 mb-6">
+                        Puedes hablar con nuestro chatbot y conocer más sobre PizzApp, sus funciones, beneficios,
+                        objetivos y cómo ayuda a mejorar la gestión de una pizzería.
+                    </p>
+
+                    <div class="bg-white rounded-2xl shadow-md p-5 border border-orange-100">
+                        <p class="text-gray-700 text-base md:text-lg">
+                            <span class="font-bold text-primary">PizzaBot dice:</span>
+                            “Hola 👋, puedes hablar con nuestro chatbot para saber más de nosotros, de nuestras funciones y de cómo PizzApp puede ayudarte.”
+                        </p>
+                    </div>
+                </div>
+
+                <div class="animate-on-scroll delay-200">
+                    <div class="bg-white rounded-3xl shadow-xl border border-gray-200 overflow-hidden">
+                        <div class="bg-primary text-white px-6 py-4 flex items-center gap-3">
+                            <span class="text-2xl">🤖</span>
+                            <div>
+                                <h3 class="font-bold text-lg">Chat de ayuda PizzApp</h3>
+                                <p class="text-sm text-gray-200">Asistente virtual disponible</p>
+                            </div>
+                        </div>
+
+                        <div class="w-full h-[500px] md:h-[600px] bg-gray-50">
+                            <iframe 
+                                src="https://www.stackai.com/chat/69def7912a5991ef2f78622b-3p4ECNHfSZOJO8sxmtSTNw"
+                                width="100%" 
+                                height="100%" 
+                                style="border:none;"
+                                title="Chatbot PizzApp">
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA FINAL -->
+    <section id="cta-final" class="py-24 bg-primary relative overflow-hidden">
+        <div class="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 rounded-full bg-white opacity-10 blur-3xl transition-transform duration-1000 hover:scale-150"></div>
+        <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 rounded-full bg-black opacity-10 blur-3xl transition-transform duration-1000 hover:scale-150"></div>
+
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 animate-on-scroll">
+            <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">
+                Lleva tu pizzería a un nuevo nivel con PizzApp
+            </h2>
+            <p class="text-xl text-indigo-100 mb-10">
+                Una solución que organiza pedidos, inventario, clientes y reportes en un solo lugar.
+            </p>
+
+            <form class="max-w-md mx-auto flex flex-col sm:flex-row gap-3 group">
+                <input
+                    type="email"
+                    placeholder="Tu mejor correo electrónico"
+                    class="flex-1 px-5 py-3 rounded-full text-gray-900 focus:outline-none focus:ring-4 focus:ring-indigo-300 transition-all shadow-lg"
+                    required
+                >
+                <button
+                    type="submit"
+                    class="bg-dark text-white px-8 py-3 rounded-full font-bold hover:bg-gray-800 hover:-translate-y-1 hover:shadow-2xl transition-all duration-300 whitespace-nowrap active:scale-95"
+                >
+                    Solicitar acceso
+                </button>
+            </form>
+
+            <p class="text-sm text-indigo-200 mt-4 opacity-80">
+                <i data-lucide="lock" class="w-4 h-4 inline mr-1"></i>
+                Proyecto académico con enfoque profesional y visión de crecimiento.
+            </p>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-gray-900 text-gray-400 py-12 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center gap-2 opacity-80 hover:opacity-100 transition-opacity">
+                <div class="w-6 h-6 bg-gray-700 rounded text-xs flex items-center justify-center text-white">🍕</div>
+                <span class="font-semibold text-white">PizzApp</span>
+            </div>
+
+            <p class="text-sm text-center">
+                © 2026 PizzApp - Grupo 4
+            </p>
+
+            <div class="flex gap-4">
+                <a href="#" class="hover:text-white hover:-translate-y-1 transition-all">Inicio</a>
+                <a href="#equipo" class="hover:text-white hover:-translate-y-1 transition-all">Equipo</a>
+                <a href="#cta-final" class="hover:text-white hover:-translate-y-1 transition-all">Contacto</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        const header = document.getElementById('main-header');
+        let lastScrollY = window.scrollY;
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 10) {
+                header.classList.add('shadow-md', 'bg-white/95');
+                header.classList.remove('shadow-sm', 'bg-white/70');
+            } else {
+                header.classList.remove('shadow-md', 'bg-white/95');
+                header.classList.add('shadow-sm', 'bg-white/70');
+            }
+
+            if (window.scrollY > lastScrollY && window.scrollY > 100) {
+                header.classList.add('-translate-y-full');
+            } else {
+                header.classList.remove('-translate-y-full');
+            }
+            lastScrollY = window.scrollY;
+        }, { passive: true });
+
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.15
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+
+                    if (entry.target.id === 'progress-line') {
+                        entry.target.classList.add('scale-x-100');
+                    }
+
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.animate-on-scroll, .animate-on-scroll-line').forEach((el) => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
