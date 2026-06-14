@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es" class="scroll-smooth">
 <head>
-    <!-- Google Tag Manager (Manteniendo tu código) -->
+    <!-- Google Tag Manager -->
     <script>
         (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
         new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -22,7 +22,7 @@
 
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="PizzApp: Plataforma híbrida para gestionar pedidos, inventario y clientes de tu pizzería. Reduce errores y mejora la eficiencia.">
+    <meta name="description" content="PizzApp: Plataforma híbrida para gestionar pedidos, inventario y clientes de tu pizzería.">
     <title>PizzApp | Gestión inteligente para pizzerías</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
@@ -60,7 +60,6 @@
         .glass-effect {
             background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
             border-bottom: 1px solid rgba(0, 0, 0, 0.05);
         }
 
@@ -88,13 +87,19 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Galería */
-        .gallery-img {
+        /* Carrusel para el teléfono */
+        .phone-screen {
             transition: all 0.3s ease;
         }
-        .gallery-img:hover {
-            transform: scale(1.02);
-            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        .carousel-btn {
+            transition: all 0.2s ease;
+        }
+        .carousel-btn:hover {
+            transform: scale(1.1);
+        }
+        .dot-active {
+            background-color: #2C3E50;
+            width: 24px;
         }
     </style>
 </head>
@@ -120,30 +125,12 @@
                 </a>
 
                 <nav class="hidden md:flex space-x-8">
-                    <a href="#problema" class="relative text-gray-600 hover:text-primary transition-colors text-sm font-medium group py-2">
-                        Problema
-                        <span class="absolute -bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
-                    </a>
-                    <a href="#solucion" class="relative text-gray-600 hover:text-primary transition-colors text-sm font-medium group py-2">
-                        Solución
-                        <span class="absolute -bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
-                    </a>
-                    <a href="#galeria" class="relative text-gray-600 hover:text-primary transition-colors text-sm font-medium group py-2">
-                        Galería
-                        <span class="absolute -bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
-                    </a>
-                    <a href="#kpis" class="relative text-gray-600 hover:text-primary transition-colors text-sm font-medium group py-2">
-                        KPIs
-                        <span class="absolute -bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
-                    </a>
-                    <a href="#equipo" class="relative text-gray-600 hover:text-primary transition-colors text-sm font-medium group py-2">
-                        Equipo
-                        <span class="absolute -bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
-                    </a>
-                    <a href="#chatbot" class="relative text-gray-600 hover:text-primary transition-colors text-sm font-medium group py-2">
-                        Chatbot
-                        <span class="absolute -bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
-                    </a>
+                    <a href="#problema" class="relative text-gray-600 hover:text-primary transition-colors text-sm font-medium group py-2">Problema<span class="absolute -bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span></a>
+                    <a href="#solucion" class="relative text-gray-600 hover:text-primary transition-colors text-sm font-medium group py-2">Solución<span class="absolute -bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span></a>
+                    <a href="#galeria" class="relative text-gray-600 hover:text-primary transition-colors text-sm font-medium group py-2">Galería<span class="absolute -bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span></a>
+                    <a href="#kpis" class="relative text-gray-600 hover:text-primary transition-colors text-sm font-medium group py-2">KPIs<span class="absolute -bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span></a>
+                    <a href="#equipo" class="relative text-gray-600 hover:text-primary transition-colors text-sm font-medium group py-2">Equipo<span class="absolute -bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span></a>
+                    <a href="#chatbot" class="relative text-gray-600 hover:text-primary transition-colors text-sm font-medium group py-2">Chatbot<span class="absolute -bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span></a>
                 </nav>
 
                 <a href="#cta-final" class="bg-primary text-white px-5 py-2 rounded-full font-medium hover:bg-slate-700 hover:shadow-lg hover:-translate-y-0.5 transform transition-all duration-300 text-sm shadow-md">
@@ -160,24 +147,16 @@
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                 <div class="text-center lg:text-left z-10 animate-on-scroll">
                     <div class="inline-flex items-center gap-2 bg-emerald-100 text-emerald-700 px-4 py-1.5 rounded-full text-sm font-semibold mb-6 shadow-sm">
-                        <span class="relative flex h-2 w-2">
-                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-                        </span>
+                        <span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span></span>
                         Aplicación híbrida para gestión integral de pizzerías
                     </div>
-
                     <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-dark leading-tight mb-6 tracking-tight">
                         Optimiza pedidos, inventario y clientes con
-                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
-                            PizzApp
-                        </span>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">PizzApp</span>
                     </h1>
-
                     <p class="text-lg md:text-xl text-gray-600 mb-8 max-w-2xl mx-auto lg:mx-0">
                         La plataforma todo-en-uno que reduce errores en pedidos, controla tu inventario en tiempo real y te ofrece reportes clave para hacer crecer tu negocio.
                     </p>
-
                     <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                         <a href="#cta-final" class="group bg-primary text-white px-8 py-3 rounded-full font-bold text-lg hover:bg-slate-700 transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1 flex items-center justify-center gap-2">
                             <i data-lucide="rocket" class="w-5 h-5 group-hover:scale-110 transition-transform"></i>
@@ -194,15 +173,16 @@
                     <div class="absolute -top-10 -right-10 w-64 h-64 bg-secondary/10 rounded-full blur-3xl animate-pulse-slow"></div>
                     <div class="absolute -bottom-10 -left-10 w-64 h-64 bg-primary/10 rounded-full blur-3xl animate-pulse-slow" style="animation-delay: 1s;"></div>
 
-                    <!-- IMAGEN REAL DE LA APP EN EL HERO -->
+                    <!-- TELÉFONO CON PRIMERA IMAGEN -->
                     <div class="relative mx-auto w-[280px] sm:w-[320px]">
                         <div class="aspect-[9/16] bg-gray-800 rounded-[3rem] shadow-2xl border-[6px] border-gray-700 overflow-hidden relative group">
                             <div class="absolute top-0 inset-x-0 h-7 bg-gray-800 flex justify-center items-center gap-2 z-10">
                                 <div class="w-20 h-1 bg-gray-600 rounded-full"></div>
+                                <div class="w-2 h-2 bg-gray-600 rounded-full"></div>
                             </div>
-                            <img src="imagenes/WhatsApp%20Image%202026-06-13%20at%2010.00.24%20PM.jpeg" 
-                                 alt="PizzApp pantalla principal" 
-                                 class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500">
+                            <div id="hero-phone-image" class="w-full h-full bg-white">
+                                <!-- Se carga con JS la primera imagen -->
+                            </div>
                         </div>
                         <div class="absolute -bottom-3 left-1/2 -translate-x-1/2 w-32 h-1 bg-gray-300 rounded-full blur-sm"></div>
                     </div>
@@ -215,22 +195,10 @@
     <section class="py-12 bg-white border-y border-gray-200 relative z-10 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-                <div class="animate-on-scroll">
-                    <div class="text-3xl md:text-4xl font-extrabold text-primary" data-target="24">0</div>
-                    <p class="text-gray-500 text-sm mt-1">Más eficiencia operativa</p>
-                </div>
-                <div class="animate-on-scroll delay-75">
-                    <div class="text-3xl md:text-4xl font-extrabold text-secondary" data-target="35">0</div>
-                    <p class="text-gray-500 text-sm mt-1">Menos errores en pedidos</p>
-                </div>
-                <div class="animate-on-scroll delay-150">
-                    <div class="text-3xl md:text-4xl font-extrabold text-primary" data-target="62">0</div>
-                    <p class="text-gray-500 text-sm mt-1">Reducción de pérdidas</p>
-                </div>
-                <div class="animate-on-scroll delay-300">
-                    <div class="text-3xl md:text-4xl font-extrabold text-secondary" data-target="98">0</div>
-                    <p class="text-gray-500 text-sm mt-1">Satisfacción del cliente (NPS)</p>
-                </div>
+                <div class="animate-on-scroll"><div class="text-3xl md:text-4xl font-extrabold text-primary countup" data-target="24">0</div><p class="text-gray-500 text-sm mt-1">Más eficiencia operativa</p></div>
+                <div class="animate-on-scroll delay-75"><div class="text-3xl md:text-4xl font-extrabold text-secondary countup" data-target="35">0</div><p class="text-gray-500 text-sm mt-1">Menos errores en pedidos</p></div>
+                <div class="animate-on-scroll delay-150"><div class="text-3xl md:text-4xl font-extrabold text-primary countup" data-target="62">0</div><p class="text-gray-500 text-sm mt-1">Reducción de pérdidas</p></div>
+                <div class="animate-on-scroll delay-300"><div class="text-3xl md:text-4xl font-extrabold text-secondary countup" data-target="98">0</div><p class="text-gray-500 text-sm mt-1">Satisfacción del cliente (NPS)</p></div>
             </div>
         </div>
     </section>
@@ -238,43 +206,13 @@
     <!-- ==================== PROBLEMA ==================== -->
     <section id="problema" class="py-20 bg-dark text-white">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 class="text-3xl md:text-4xl font-bold mb-6 animate-on-scroll">
-                El problema que resuelve PizzApp
-            </h2>
-            <p class="text-xl text-gray-400 mb-10 animate-on-scroll delay-100 max-w-3xl mx-auto">
-                Actualmente, muchas pizzerías gestionan pedidos e inventario de forma manual,
-                lo que provoca errores, pérdida de insumos, retrasos y poca claridad para decidir.
-            </p>
-
+            <h2 class="text-3xl md:text-4xl font-bold mb-6 animate-on-scroll">El problema que resuelve PizzApp</h2>
+            <p class="text-xl text-gray-400 mb-10 animate-on-scroll delay-100 max-w-3xl mx-auto">Actualmente, muchas pizzerías gestionan pedidos e inventario de forma manual, lo que provoca errores, pérdida de insumos, retrasos y poca claridad para decidir.</p>
             <div class="grid grid-cols-1 md:grid-cols-4 gap-6 text-left mt-12">
-                <div class="bg-gray-800/80 p-6 rounded-2xl border border-gray-700 hover:bg-gray-700 hover:-translate-y-2 transition-all duration-300 animate-on-scroll">
-                    <div class="w-12 h-12 bg-red-500/20 rounded-xl flex items-center justify-center text-red-400 mb-4">
-                        <i data-lucide="x-circle" class="w-6 h-6"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mb-2">Errores en pedidos</h3>
-                    <p class="text-gray-400">La toma manual aumenta equivocaciones y retrabajo.</p>
-                </div>
-                <div class="bg-gray-800/80 p-6 rounded-2xl border border-gray-700 hover:bg-gray-700 hover:-translate-y-2 transition-all duration-300 animate-on-scroll delay-100">
-                    <div class="w-12 h-12 bg-red-500/20 rounded-xl flex items-center justify-center text-red-400 mb-4">
-                        <i data-lucide="package-x" class="w-6 h-6"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mb-2">Falta de inventario</h3>
-                    <p class="text-gray-400">Control deficiente de insumos genera faltantes.</p>
-                </div>
-                <div class="bg-gray-800/80 p-6 rounded-2xl border border-gray-700 hover:bg-gray-700 hover:-translate-y-2 transition-all duration-300 animate-on-scroll delay-200">
-                    <div class="w-12 h-12 bg-red-500/20 rounded-xl flex items-center justify-center text-red-400 mb-4">
-                        <i data-lucide="trash-2" class="w-6 h-6"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mb-2">Pérdida de insumos</h3>
-                    <p class="text-gray-400">Poca trazabilidad favorece desperdicios.</p>
-                </div>
-                <div class="bg-gray-800/80 p-6 rounded-2xl border border-gray-700 hover:bg-gray-700 hover:-translate-y-2 transition-all duration-300 animate-on-scroll delay-300">
-                    <div class="w-12 h-12 bg-red-500/20 rounded-xl flex items-center justify-center text-red-400 mb-4">
-                        <i data-lucide="clock-3" class="w-6 h-6"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mb-2">Atención lenta</h3>
-                    <p class="text-gray-400">Retrasos afectan la experiencia del cliente.</p>
-                </div>
+                <div class="bg-gray-800/80 p-6 rounded-2xl border border-gray-700 hover:bg-gray-700 hover:-translate-y-2 transition-all duration-300 animate-on-scroll"><div class="w-12 h-12 bg-red-500/20 rounded-xl flex items-center justify-center text-red-400 mb-4"><i data-lucide="x-circle" class="w-6 h-6"></i></div><h3 class="text-xl font-bold mb-2">Errores en pedidos</h3><p class="text-gray-400">La toma manual aumenta equivocaciones y retrabajo.</p></div>
+                <div class="bg-gray-800/80 p-6 rounded-2xl border border-gray-700 hover:bg-gray-700 hover:-translate-y-2 transition-all duration-300 animate-on-scroll delay-100"><div class="w-12 h-12 bg-red-500/20 rounded-xl flex items-center justify-center text-red-400 mb-4"><i data-lucide="package-x" class="w-6 h-6"></i></div><h3 class="text-xl font-bold mb-2">Falta de inventario</h3><p class="text-gray-400">Control deficiente de insumos genera faltantes.</p></div>
+                <div class="bg-gray-800/80 p-6 rounded-2xl border border-gray-700 hover:bg-gray-700 hover:-translate-y-2 transition-all duration-300 animate-on-scroll delay-200"><div class="w-12 h-12 bg-red-500/20 rounded-xl flex items-center justify-center text-red-400 mb-4"><i data-lucide="trash-2" class="w-6 h-6"></i></div><h3 class="text-xl font-bold mb-2">Pérdida de insumos</h3><p class="text-gray-400">Poca trazabilidad favorece desperdicios.</p></div>
+                <div class="bg-gray-800/80 p-6 rounded-2xl border border-gray-700 hover:bg-gray-700 hover:-translate-y-2 transition-all duration-300 animate-on-scroll delay-300"><div class="w-12 h-12 bg-red-500/20 rounded-xl flex items-center justify-center text-red-400 mb-4"><i data-lucide="clock-3" class="w-6 h-6"></i></div><h3 class="text-xl font-bold mb-2">Atención lenta</h3><p class="text-gray-400">Retrasos afectan la experiencia del cliente.</p></div>
             </div>
         </div>
     </section>
@@ -284,42 +222,22 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-3xl mx-auto mb-16 animate-on-scroll">
                 <span class="text-primary font-semibold tracking-wide uppercase text-sm mb-2 block">La solución</span>
-                <h2 class="text-3xl md:text-4xl font-bold text-dark mb-4">
-                    Una app híbrida para administrar la pizzería de forma inteligente
-                </h2>
-                <p class="text-lg text-gray-600">
-                    PizzApp integra pedidos, inventario, clientes y reportes estadísticos en una sola plataforma.
-                </p>
+                <h2 class="text-3xl md:text-4xl font-bold text-dark mb-4">Una app híbrida para administrar la pizzería de forma inteligente</h2>
+                <p class="text-lg text-gray-600">PizzApp integra pedidos, inventario, clientes y reportes estadísticos en una sola plataforma.</p>
             </div>
-
             <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
                 <div class="order-2 md:order-1 animate-on-scroll">
                     <h3 class="text-2xl font-bold mb-4">Beneficios principales</h3>
                     <ul class="space-y-4">
-                        <li class="flex items-center gap-3 text-gray-700 p-2 hover:bg-gray-50 rounded-lg transition-all">
-                            <div class="bg-green-100 p-1 rounded-full"><i data-lucide="check" class="text-secondary w-5 h-5"></i></div>
-                            Reduce errores en el registro y seguimiento de pedidos.
-                        </li>
-                        <li class="flex items-center gap-3 text-gray-700 p-2 hover:bg-gray-50 rounded-lg transition-all">
-                            <div class="bg-green-100 p-1 rounded-full"><i data-lucide="check" class="text-secondary w-5 h-5"></i></div>
-                            Mejora el control de ingredientes, stock y pérdidas.
-                        </li>
-                        <li class="flex items-center gap-3 text-gray-700 p-2 hover:bg-gray-50 rounded-lg transition-all">
-                            <div class="bg-green-100 p-1 rounded-full"><i data-lucide="check" class="text-secondary w-5 h-5"></i></div>
-                            Permite visualizar reportes y métricas para decidir mejor.
-                        </li>
-                        <li class="flex items-center gap-3 text-gray-700 p-2 hover:bg-gray-50 rounded-lg transition-all">
-                            <div class="bg-green-100 p-1 rounded-full"><i data-lucide="check" class="text-secondary w-5 h-5"></i></div>
-                            Fideliza clientes con promociones y sistema de puntos.
-                        </li>
+                        <li class="flex items-center gap-3 text-gray-700 p-2 hover:bg-gray-50 rounded-lg"><div class="bg-green-100 p-1 rounded-full"><i data-lucide="check" class="text-secondary w-5 h-5"></i></div>Reduce errores en el registro y seguimiento de pedidos.</li>
+                        <li class="flex items-center gap-3 text-gray-700 p-2 hover:bg-gray-50 rounded-lg"><div class="bg-green-100 p-1 rounded-full"><i data-lucide="check" class="text-secondary w-5 h-5"></i></div>Mejora el control de ingredientes, stock y pérdidas.</li>
+                        <li class="flex items-center gap-3 text-gray-700 p-2 hover:bg-gray-50 rounded-lg"><div class="bg-green-100 p-1 rounded-full"><i data-lucide="check" class="text-secondary w-5 h-5"></i></div>Permite visualizar reportes y métricas para decidir mejor.</li>
+                        <li class="flex items-center gap-3 text-gray-700 p-2 hover:bg-gray-50 rounded-lg"><div class="bg-green-100 p-1 rounded-full"><i data-lucide="check" class="text-secondary w-5 h-5"></i></div>Fideliza clientes con promociones y sistema de puntos.</li>
                     </ul>
                 </div>
-
                 <div class="order-1 md:order-2 animate-on-scroll delay-200">
                     <div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-4 shadow-xl border border-gray-100">
-                        <img src="imagenes/WhatsApp%20Image%202026-06-13%20at%2010.02.24%20PM.jpeg" 
-                             alt="Dashboard PizzApp" 
-                             class="w-full rounded-xl shadow-md">
+                        <img src="imagenes/WhatsApp%20Image%202026-06-13%20at%2010.02.24%20PM.jpeg" alt="Dashboard PizzApp" class="w-full rounded-xl shadow-md">
                         <p class="text-center text-gray-400 text-xs mt-3">Panel de control y métricas</p>
                     </div>
                 </div>
@@ -327,38 +245,51 @@
         </div>
     </section>
 
-    <!-- ==================== GALERÍA DE IMÁGENES (TODAS TUS CAPTURAS) ==================== -->
+    <!-- ==================== GALERÍA CON TELÉFONO CARRUSEL ==================== -->
     <section id="galeria" class="py-20 bg-gray-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12 animate-on-scroll">
                 <h2 class="text-3xl font-bold text-dark">Galería de la aplicación</h2>
-                <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Capturas de pantalla de las principales pantallas y funcionalidades de PizzApp.</p>
+                <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Explora las principales pantallas de PizzApp dentro del simulador de teléfono.</p>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="bg-white rounded-xl shadow-md overflow-hidden gallery-img cursor-pointer animate-on-scroll">
-                    <img src="imagenes/WhatsApp%20Image%202026-06-13%20at%2010.00.24%20PM.jpeg" alt="Pantalla de inicio" class="w-full h-64 object-cover object-top">
-                    <div class="p-3 text-center"><p class="text-sm font-medium text-gray-600">Pantalla de inicio</p></div>
+            <div class="flex flex-col lg:flex-row justify-center items-center gap-12">
+                <!-- Teléfono Mockup -->
+                <div class="relative mx-auto w-[280px] sm:w-[320px] animate-on-scroll">
+                    <div class="aspect-[9/16] bg-gray-800 rounded-[3rem] shadow-2xl border-[6px] border-gray-700 overflow-hidden relative">
+                        <div class="absolute top-0 inset-x-0 h-7 bg-gray-800 flex justify-center items-center gap-2 z-10">
+                            <div class="w-20 h-1 bg-gray-600 rounded-full"></div>
+                            <div class="w-2 h-2 bg-gray-600 rounded-full"></div>
+                        </div>
+                        <div class="absolute bottom-2 left-1/2 -translate-x-1/2 w-24 h-1 bg-gray-600 rounded-full z-10"></div>
+                        <div id="carousel-image" class="w-full h-full bg-white">
+                            <!-- Las imágenes se cargan con JS -->
+                        </div>
+                    </div>
                 </div>
-                <div class="bg-white rounded-xl shadow-md overflow-hidden gallery-img cursor-pointer animate-on-scroll delay-75">
-                    <img src="imagenes/WhatsApp%20Image%202026-06-13%20at%2010.01.56%20PM.jpeg" alt="Menú de productos" class="w-full h-64 object-cover object-top">
-                    <div class="p-3 text-center"><p class="text-sm font-medium text-gray-600">Menú de productos</p></div>
-                </div>
-                <div class="bg-white rounded-xl shadow-md overflow-hidden gallery-img cursor-pointer animate-on-scroll delay-100">
-                    <img src="imagenes/WhatsApp%20Image%202026-06-13%20at%2010.02.24%20PM.jpeg" alt="Dashboard" class="w-full h-64 object-cover object-top">
-                    <div class="p-3 text-center"><p class="text-sm font-medium text-gray-600">Dashboard</p></div>
-                </div>
-                <div class="bg-white rounded-xl shadow-md overflow-hidden gallery-img cursor-pointer animate-on-scroll delay-150">
-                    <img src="imagenes/WhatsApp%20Image%202026-06-13%20at%2010.03.06%20PM.jpeg" alt="Gestión de pedidos" class="w-full h-64 object-cover object-top">
-                    <div class="p-3 text-center"><p class="text-sm font-medium text-gray-600">Gestión de pedidos</p></div>
-                </div>
-                <div class="bg-white rounded-xl shadow-md overflow-hidden gallery-img cursor-pointer animate-on-scroll delay-200">
-                    <img src="imagenes/WhatsApp%20Image%202026-06-13%20at%2010.05.13%20PM.jpeg" alt="Carrito de compra" class="w-full h-64 object-cover object-top">
-                    <div class="p-3 text-center"><p class="text-sm font-medium text-gray-600">Carrito de compra</p></div>
-                </div>
-                <div class="bg-white rounded-xl shadow-md overflow-hidden gallery-img cursor-pointer animate-on-scroll delay-300">
-                    <img src="imagenes/WhatsApp%20Image%202026-06-13%20at%2010.06.16%20PM.jpeg" alt="Estado del pedido" class="w-full h-64 object-cover object-top">
-                    <div class="p-3 text-center"><p class="text-sm font-medium text-gray-600">Estado del pedido</p></div>
+
+                <!-- Controles del carrusel -->
+                <div class="flex flex-col items-center gap-6 animate-on-scroll delay-100">
+                    <div class="flex gap-4">
+                        <button id="prev-btn" class="carousel-btn bg-white p-3 rounded-full shadow-lg hover:shadow-xl transition-all">
+                            <i data-lucide="chevron-left" class="w-6 h-6 text-primary"></i>
+                        </button>
+                        <button id="next-btn" class="carousel-btn bg-white p-3 rounded-full shadow-lg hover:shadow-xl transition-all">
+                            <i data-lucide="chevron-right" class="w-6 h-6 text-primary"></i>
+                        </button>
+                    </div>
+                    
+                    <!-- Indicadores de página -->
+                    <div id="carousel-dots" class="flex gap-2 justify-center">
+                        <!-- Se generan con JS -->
+                    </div>
+
+                    <!-- Título de la pantalla actual -->
+                    <div id="screen-title" class="text-center mt-4">
+                        <p class="text-sm font-semibold text-primary bg-white px-4 py-2 rounded-full shadow-sm inline-block">
+                            Pantalla 1 de 6
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -368,10 +299,7 @@
     <section id="kpis" class="py-20 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 class="text-3xl font-bold text-dark mb-4 animate-on-scroll">Métricas y KPIs del negocio</h2>
-            <p class="text-gray-600 mb-10 max-w-3xl mx-auto animate-on-scroll delay-100">
-                Indicadores clave para medir tiempos, ventas, inventario, pérdidas y fidelización.
-            </p>
-
+            <p class="text-gray-600 mb-10 max-w-3xl mx-auto animate-on-scroll delay-100">Indicadores clave para medir tiempos, ventas, inventario, pérdidas y fidelización.</p>
             <div class="flex flex-wrap justify-center gap-2 mb-10 animate-on-scroll delay-150">
                 <button data-tab="tab-pedidos" class="tab-btn px-5 py-2 rounded-full text-sm font-medium bg-white text-primary shadow-sm">📋 Pedidos</button>
                 <button data-tab="tab-ventas" class="tab-btn px-5 py-2 rounded-full text-sm font-medium bg-gray-100 text-gray-600">💰 Ventas</button>
@@ -379,42 +307,11 @@
                 <button data-tab="tab-perdidas" class="tab-btn px-5 py-2 rounded-full text-sm font-medium bg-gray-100 text-gray-600">⚠️ Pérdidas</button>
                 <button data-tab="tab-clientes" class="tab-btn px-5 py-2 rounded-full text-sm font-medium bg-gray-100 text-gray-600">❤️ Clientes</button>
             </div>
-
-            <div id="tab-pedidos" class="tab-content active">
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
-                    <div class="bg-gray-50 p-6 rounded-xl"><h3 class="font-bold">Tiempo promedio</h3><p class="text-gray-600 text-sm">de preparación de pedidos.</p></div>
-                    <div class="bg-gray-50 p-6 rounded-xl"><h3 class="font-bold">Pedidos a tiempo</h3><p class="text-gray-600 text-sm">Porcentaje dentro del objetivo.</p></div>
-                    <div class="bg-gray-50 p-6 rounded-xl"><h3 class="font-bold">Pedidos tardíos</h3><p class="text-gray-600 text-sm">Cantidad que superan el tiempo estimado.</p></div>
-                </div>
-            </div>
-            <div id="tab-ventas" class="tab-content">
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
-                    <div class="bg-gray-50 p-6 rounded-xl"><h3 class="font-bold">Top productos</h3><p class="text-gray-600 text-sm">Los más vendidos de la semana.</p></div>
-                    <div class="bg-gray-50 p-6 rounded-xl"><h3 class="font-bold">Ranking mensual</h3><p class="text-gray-600 text-sm">Productos con mayor demanda.</p></div>
-                    <div class="bg-gray-50 p-6 rounded-xl"><h3 class="font-bold">Ingresos por producto</h3><p class="text-gray-600 text-sm">Rentabilidad de cada pizza.</p></div>
-                </div>
-            </div>
-            <div id="tab-inventario" class="tab-content">
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
-                    <div class="bg-gray-50 p-6 rounded-xl"><h3 class="font-bold">Stock disponible</h3><p class="text-gray-600 text-sm">Porcentaje de ingredientes clave.</p></div>
-                    <div class="bg-gray-50 p-6 rounded-xl"><h3 class="font-bold">Reabastecimiento</h3><p class="text-gray-600 text-sm">Tiempo promedio para reponer.</p></div>
-                    <div class="bg-gray-50 p-6 rounded-xl"><h3 class="font-bold">Faltantes</h3><p class="text-gray-600 text-sm">Número de veces sin stock.</p></div>
-                </div>
-            </div>
-            <div id="tab-perdidas" class="tab-content">
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
-                    <div class="bg-gray-50 p-6 rounded-xl"><h3 class="font-bold">Caducidad</h3><p class="text-gray-600 text-sm">Porcentaje de ingredientes vencidos.</p></div>
-                    <div class="bg-gray-50 p-6 rounded-xl"><h3 class="font-bold">Costo de pérdida</h3><p class="text-gray-600 text-sm">Valor de productos desechados.</p></div>
-                    <div class="bg-gray-50 p-6 rounded-xl"><h3 class="font-bold">Insumos desechados</h3><p class="text-gray-600 text-sm">Cantidad total desperdiciada.</p></div>
-                </div>
-            </div>
-            <div id="tab-clientes" class="tab-content">
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
-                    <div class="bg-gray-50 p-6 rounded-xl"><h3 class="font-bold">Recompra</h3><p class="text-gray-600 text-sm">Porcentaje de clientes que repiten.</p></div>
-                    <div class="bg-gray-50 p-6 rounded-xl"><h3 class="font-bold">Frecuencia</h3><p class="text-gray-600 text-sm">Compras promedio por cliente.</p></div>
-                    <div class="bg-gray-50 p-6 rounded-xl"><h3 class="font-bold">Nuevos vs recurrentes</h3><p class="text-gray-600 text-sm">Proporción de cada tipo.</p></div>
-                </div>
-            </div>
+            <div id="tab-pedidos" class="tab-content active"><div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left"><div class="bg-gray-50 p-6 rounded-xl"><h3 class="font-bold">Tiempo promedio</h3><p class="text-gray-600 text-sm">de preparación de pedidos.</p></div><div class="bg-gray-50 p-6 rounded-xl"><h3 class="font-bold">Pedidos a tiempo</h3><p class="text-gray-600 text-sm">Porcentaje dentro del objetivo.</p></div><div class="bg-gray-50 p-6 rounded-xl"><h3 class="font-bold">Pedidos tardíos</h3><p class="text-gray-600 text-sm">Cantidad que superan el tiempo estimado.</p></div></div></div>
+            <div id="tab-ventas" class="tab-content"><div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left"><div class="bg-gray-50 p-6 rounded-xl"><h3 class="font-bold">Top productos</h3><p class="text-gray-600 text-sm">Los más vendidos de la semana.</p></div><div class="bg-gray-50 p-6 rounded-xl"><h3 class="font-bold">Ranking mensual</h3><p class="text-gray-600 text-sm">Productos con mayor demanda.</p></div><div class="bg-gray-50 p-6 rounded-xl"><h3 class="font-bold">Ingresos por producto</h3><p class="text-gray-600 text-sm">Rentabilidad de cada pizza.</p></div></div></div>
+            <div id="tab-inventario" class="tab-content"><div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left"><div class="bg-gray-50 p-6 rounded-xl"><h3 class="font-bold">Stock disponible</h3><p class="text-gray-600 text-sm">Porcentaje de ingredientes clave.</p></div><div class="bg-gray-50 p-6 rounded-xl"><h3 class="font-bold">Reabastecimiento</h3><p class="text-gray-600 text-sm">Tiempo promedio para reponer.</p></div><div class="bg-gray-50 p-6 rounded-xl"><h3 class="font-bold">Faltantes</h3><p class="text-gray-600 text-sm">Número de veces sin stock.</p></div></div></div>
+            <div id="tab-perdidas" class="tab-content"><div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left"><div class="bg-gray-50 p-6 rounded-xl"><h3 class="font-bold">Caducidad</h3><p class="text-gray-600 text-sm">Porcentaje de ingredientes vencidos.</p></div><div class="bg-gray-50 p-6 rounded-xl"><h3 class="font-bold">Costo de pérdida</h3><p class="text-gray-600 text-sm">Valor de productos desechados.</p></div><div class="bg-gray-50 p-6 rounded-xl"><h3 class="font-bold">Insumos desechados</h3><p class="text-gray-600 text-sm">Cantidad total desperdiciada.</p></div></div></div>
+            <div id="tab-clientes" class="tab-content"><div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left"><div class="bg-gray-50 p-6 rounded-xl"><h3 class="font-bold">Recompra</h3><p class="text-gray-600 text-sm">Porcentaje de clientes que repiten.</p></div><div class="bg-gray-50 p-6 rounded-xl"><h3 class="font-bold">Frecuencia</h3><p class="text-gray-600 text-sm">Compras promedio por cliente.</p></div><div class="bg-gray-50 p-6 rounded-xl"><h3 class="font-bold">Nuevos vs recurrentes</h3><p class="text-gray-600 text-sm">Proporción de cada tipo.</p></div></div></div>
         </div>
     </section>
 
@@ -434,35 +331,11 @@
     <!-- ==================== EQUIPO CON FOTOS REALES ==================== -->
     <section id="equipo" class="py-20 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <div class="animate-on-scroll">
-                <h2 class="text-3xl font-bold text-dark mb-4">Equipo del proyecto</h2>
-                <p class="text-gray-600 mb-12 max-w-3xl mx-auto">Estudiantes de Ingeniería en Sistemas de Información, Grupo 4.</p>
-            </div>
+            <div class="animate-on-scroll"><h2 class="text-3xl font-bold text-dark mb-4">Equipo del proyecto</h2><p class="text-gray-600 mb-12 max-w-3xl mx-auto">Estudiantes de Ingeniería en Sistemas de Información, Grupo 4.</p></div>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
-                <div class="bg-gray-50 p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all hover:-translate-y-2 animate-on-scroll">
-                    <div class="w-28 h-28 mx-auto mb-6 rounded-full overflow-hidden border-4 border-white shadow-md bg-gray-200">
-                        <img src="img/bryan.jpg.jpeg" alt="Bryan" class="w-full h-full object-cover">
-                    </div>
-                    <h3 class="text-xl font-bold">Bryan Josué Bermúdez</h3>
-                    <p class="text-secondary text-sm mb-2">Frontend</p>
-                    <p class="text-gray-500 text-sm">Interfaz visual y experiencia de usuario.</p>
-                </div>
-                <div class="bg-gray-50 p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all hover:-translate-y-2 animate-on-scroll delay-100">
-                    <div class="w-28 h-28 mx-auto mb-6 rounded-full overflow-hidden border-4 border-white shadow-md bg-gray-200">
-                        <img src="img/xaviera.jpg.jpeg" alt="Julissa" class="w-full h-full object-cover">
-                    </div>
-                    <h3 class="text-xl font-bold">Julissa Xaviera Pérez</h3>
-                    <p class="text-secondary text-sm mb-2">QA / Diseño</p>
-                    <p class="text-gray-500 text-sm">Validación y control de calidad.</p>
-                </div>
-                <div class="bg-gray-50 p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all hover:-translate-y-2 animate-on-scroll delay-200">
-                    <div class="w-28 h-28 mx-auto mb-6 rounded-full overflow-hidden border-4 border-white shadow-md bg-gray-200">
-                        <img src="img/jeremy.jpg.jpeg" alt="Jeremy" class="w-full h-full object-cover">
-                    </div>
-                    <h3 class="text-xl font-bold">Jeremy José Álvarez</h3>
-                    <p class="text-secondary text-sm mb-2">Backend / Scrum</p>
-                    <p class="text-gray-500 text-sm">Coordinación ágil y lógica funcional.</p>
-                </div>
+                <div class="bg-gray-50 p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all hover:-translate-y-2 animate-on-scroll"><div class="w-28 h-28 mx-auto mb-6 rounded-full overflow-hidden border-4 border-white shadow-md bg-gray-200"><img src="img/bryan.jpg.jpeg" alt="Bryan" class="w-full h-full object-cover"></div><h3 class="text-xl font-bold">Bryan Josué Bermúdez</h3><p class="text-secondary text-sm mb-2">Frontend</p><p class="text-gray-500 text-sm">Interfaz visual y experiencia de usuario.</p></div>
+                <div class="bg-gray-50 p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all hover:-translate-y-2 animate-on-scroll delay-100"><div class="w-28 h-28 mx-auto mb-6 rounded-full overflow-hidden border-4 border-white shadow-md bg-gray-200"><img src="img/xaviera.jpg.jpeg" alt="Julissa" class="w-full h-full object-cover"></div><h3 class="text-xl font-bold">Julissa Xaviera Pérez</h3><p class="text-secondary text-sm mb-2">QA / Diseño</p><p class="text-gray-500 text-sm">Validación y control de calidad.</p></div>
+                <div class="bg-gray-50 p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all hover:-translate-y-2 animate-on-scroll delay-200"><div class="w-28 h-28 mx-auto mb-6 rounded-full overflow-hidden border-4 border-white shadow-md bg-gray-200"><img src="img/jeremy.jpg.jpeg" alt="Jeremy" class="w-full h-full object-cover"></div><h3 class="text-xl font-bold">Jeremy José Álvarez</h3><p class="text-secondary text-sm mb-2">Backend / Scrum</p><p class="text-gray-500 text-sm">Coordinación ágil y lógica funcional.</p></div>
             </div>
         </div>
     </section>
@@ -472,24 +345,15 @@
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
                 <div class="animate-on-scroll text-center lg:text-left">
-                    <div class="inline-flex items-center gap-3 bg-yellow-100 text-orange-700 px-4 py-2 rounded-full font-semibold mb-6">
-                        <span class="text-2xl animate-float inline-block">🍕</span> Nuestra mascota pizzera
-                    </div>
+                    <div class="inline-flex items-center gap-3 bg-yellow-100 text-orange-700 px-4 py-2 rounded-full font-semibold mb-6"><span class="text-2xl animate-float inline-block">🍕</span> Nuestra mascota pizzera</div>
                     <h2 class="text-3xl md:text-4xl font-bold text-dark mb-4">¿Quieres saber más?</h2>
                     <p class="text-lg text-gray-600 mb-6">Habla con PizzaBot y descubre funciones, beneficios y cómo PizzApp mejora tu negocio.</p>
-                    <div class="bg-white rounded-2xl shadow-md p-5 border border-gray-100">
-                        <p class="text-gray-700"><span class="font-bold text-primary">PizzaBot dice:</span> “Hola 👋, pregúntame sobre nuestras funcionalidades, objetivos o cómo ayudamos a tu negocio.”</p>
-                    </div>
+                    <div class="bg-white rounded-2xl shadow-md p-5 border border-gray-100"><p class="text-gray-700"><span class="font-bold text-primary">PizzaBot dice:</span> “Hola 👋, pregúntame sobre nuestras funcionalidades, objetivos o cómo ayudamos a tu negocio.”</p></div>
                 </div>
                 <div class="animate-on-scroll delay-200">
                     <div class="bg-white rounded-3xl shadow-xl border border-gray-200 overflow-hidden">
-                        <div class="bg-primary text-white px-6 py-4 flex items-center gap-3">
-                            <span class="text-2xl">🤖</span>
-                            <div><h3 class="font-bold text-lg">Chat de ayuda PizzApp</h3><p class="text-sm text-gray-200">Asistente virtual disponible</p></div>
-                        </div>
-                        <div class="w-full h-[500px] bg-gray-50">
-                            <iframe src="https://www.stackai.com/chat/69def7912a5991ef2f78622b-3p4ECNHfSZOJO8sxmtSTNw" width="100%" height="100%" style="border:none;" title="Chatbot PizzApp"></iframe>
-                        </div>
+                        <div class="bg-primary text-white px-6 py-4 flex items-center gap-3"><span class="text-2xl">🤖</span><div><h3 class="font-bold text-lg">Chat de ayuda PizzApp</h3><p class="text-sm text-gray-200">Asistente virtual disponible</p></div></div>
+                        <div class="w-full h-[500px] bg-gray-50"><iframe src="https://www.stackai.com/chat/69def7912a5991ef2f78622b-3p4ECNHfSZOJO8sxmtSTNw" width="100%" height="100%" style="border:none;" title="Chatbot PizzApp"></iframe></div>
                     </div>
                 </div>
             </div>
@@ -498,15 +362,11 @@
 
     <!-- ==================== CTA FINAL ==================== -->
     <section id="cta-final" class="py-24 bg-primary relative overflow-hidden">
-        <div class="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full blur-3xl"></div>
-        <div class="absolute bottom-0 left-0 w-96 h-96 bg-black/5 rounded-full blur-3xl"></div>
+        <div class="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full blur-3xl"></div><div class="absolute bottom-0 left-0 w-96 h-96 bg-black/5 rounded-full blur-3xl"></div>
         <div class="max-w-4xl mx-auto px-4 text-center relative z-10 animate-on-scroll">
             <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Lleva tu pizzería al siguiente nivel</h2>
             <p class="text-xl text-indigo-100 mb-8">PizzApp: la solución integral para organizar pedidos, inventario y clientes.</p>
-            <form class="max-w-md mx-auto flex flex-col sm:flex-row gap-3">
-                <input type="email" placeholder="Tu correo electrónico" class="flex-1 px-5 py-3 rounded-full text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-300 shadow-lg" required>
-                <button type="submit" class="bg-dark text-white px-8 py-3 rounded-full font-bold hover:bg-gray-800 hover:-translate-y-1 transition-all">Solicitar acceso</button>
-            </form>
+            <form class="max-w-md mx-auto flex flex-col sm:flex-row gap-3"><input type="email" placeholder="Tu correo electrónico" class="flex-1 px-5 py-3 rounded-full text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-300 shadow-lg" required><button type="submit" class="bg-dark text-white px-8 py-3 rounded-full font-bold hover:bg-gray-800 hover:-translate-y-1 transition-all">Solicitar acceso</button></form>
             <p class="text-indigo-200 text-sm mt-4">Proyecto académico con visión profesional y de crecimiento.</p>
         </div>
     </section>
@@ -515,22 +375,81 @@
     <footer class="bg-gray-900 text-gray-400 pt-16 pb-8 border-t border-gray-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 mb-12">
-                <div class="lg:col-span-2">
-                    <div class="flex items-center gap-2 mb-4"><div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-white">🍕</div><span class="font-bold text-xl text-white">PizzApp</span></div>
-                    <p class="text-sm">Gestión inteligente para pizzerías. Moderniza tu negocio con tecnología híbrida y datos accionables.</p>
-                </div>
-                <div><h4 class="text-white font-semibold mb-4">Producto</h4><ul class="space-y-2 text-sm"><li><a href="#funcionalidades" class="hover:text-white transition">Funcionalidades</a></li><li><a href="#kpis" class="hover:text-white transition">KPIs</a></li><li><a href="#solucion" class="hover:text-white transition">Beneficios</a></li></ul></div>
+                <div class="lg:col-span-2"><div class="flex items-center gap-2 mb-4"><div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-white">🍕</div><span class="font-bold text-xl text-white">PizzApp</span></div><p class="text-sm">Gestión inteligente para pizzerías. Moderniza tu negocio con tecnología híbrida y datos accionables.</p></div>
+                <div><h4 class="text-white font-semibold mb-4">Producto</h4><ul class="space-y-2 text-sm"><li><a href="#galeria" class="hover:text-white transition">Galería</a></li><li><a href="#kpis" class="hover:text-white transition">KPIs</a></li><li><a href="#solucion" class="hover:text-white transition">Beneficios</a></li></ul></div>
                 <div><h4 class="text-white font-semibold mb-4">Recursos</h4><ul class="space-y-2 text-sm"><li><a href="#faq" class="hover:text-white transition">Preguntas Frecuentes</a></li><li><a href="#chatbot" class="hover:text-white transition">Chat de ayuda</a></li></ul></div>
                 <div><h4 class="text-white font-semibold mb-4">Equipo</h4><ul class="space-y-2 text-sm"><li><a href="#equipo" class="hover:text-white transition">Sobre nosotros</a></li></ul></div>
             </div>
-            <div class="border-t border-gray-800 pt-8 text-center text-xs">
-                <p>© 2026 PizzApp - Grupo 4. Proyecto académico UNAN-Managua, CUR Chontales.</p>
-            </div>
+            <div class="border-t border-gray-800 pt-8 text-center text-xs"><p>© 2026 PizzApp - Grupo 4. Proyecto académico UNAN-Managua, CUR Chontales.</p></div>
         </div>
     </footer>
 
     <script>
         lucide.createIcons();
+
+        // ==================== CARRUSEL PARA LA GALERÍA ====================
+        const images = [
+            { src: "imagenes/WhatsApp%20Image%202026-06-13%20at%2010.00.24%20PM.jpeg", title: "Pantalla de inicio - Login" },
+            { src: "imagenes/WhatsApp%20Image%202026-06-13%20at%2010.01.56%20PM.jpeg", title: "Registro de usuario" },
+            { src: "imagenes/WhatsApp%20Image%202026-06-13%20at%2010.02.24%20PM.jpeg", title: "Dashboard - Reportes y métricas" },
+            { src: "imagenes/WhatsApp%20Image%202026-06-13%20at%2010.03.06%20PM.jpeg", title: "Gestión de pedidos - Empleado" },
+            { src: "imagenes/WhatsApp%20Image%202026-06-13%20at%2010.05.13%20PM.jpeg", title: "Carrito de compra" },
+            { src: "imagenes/WhatsApp%20Image%202026-06-13%20at%2010.06.16%20PM.jpeg", title: "Estado del pedido y seguimiento" }
+        ];
+
+        let currentIndex = 0;
+        const carouselImage = document.getElementById('carousel-image');
+        const heroPhoneImage = document.getElementById('hero-phone-image');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const dotsContainer = document.getElementById('carousel-dots');
+        const screenTitle = document.getElementById('screen-title');
+
+        function updateCarousel() {
+            // Actualizar imagen del carrusel
+            if (carouselImage) {
+                carouselImage.innerHTML = `<img src="${images[currentIndex].src}" alt="${images[currentIndex].title}" class="w-full h-full object-cover object-top">`;
+            }
+            // Actualizar título
+            if (screenTitle) {
+                screenTitle.innerHTML = `<p class="text-sm font-semibold text-primary bg-white px-4 py-2 rounded-full shadow-sm inline-block">${images[currentIndex].title}</p>`;
+            }
+            // Actualizar dots
+            if (dotsContainer) {
+                dotsContainer.innerHTML = '';
+                images.forEach((_, idx) => {
+                    const dot = document.createElement('button');
+                    dot.className = `w-2 h-2 rounded-full transition-all duration-300 ${idx === currentIndex ? 'bg-primary w-6' : 'bg-gray-300'}`;
+                    dot.addEventListener('click', () => {
+                        currentIndex = idx;
+                        updateCarousel();
+                    });
+                    dotsContainer.appendChild(dot);
+                });
+            }
+        }
+
+        // También actualizar el teléfono del hero con una imagen (puede ser la primera)
+        if (heroPhoneImage && images[0]) {
+            heroPhoneImage.innerHTML = `<img src="${images[0].src}" alt="${images[0].title}" class="w-full h-full object-cover object-top">`;
+        }
+
+        if (prevBtn) {
+            prevBtn.addEventListener('click', () => {
+                currentIndex = (currentIndex - 1 + images.length) % images.length;
+                updateCarousel();
+            });
+        }
+
+        if (nextBtn) {
+            nextBtn.addEventListener('click', () => {
+                currentIndex = (currentIndex + 1) % images.length;
+                updateCarousel();
+            });
+        }
+
+        // Inicializar carrusel
+        updateCarousel();
 
         // Header scroll
         const header = document.getElementById('main-header');
@@ -551,7 +470,7 @@
             lastScrollY = window.scrollY;
         });
 
-        // Intersection Observer
+        // Intersection Observer para animaciones
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -563,7 +482,7 @@
         document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
 
         // Count-up numbers
-        const countUpElements = document.querySelectorAll('[data-target]');
+        const countUpElements = document.querySelectorAll('.countup');
         const countObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -587,21 +506,24 @@
         }, { threshold: 0.5 });
         countUpElements.forEach(el => countObserver.observe(el));
 
-        // Tabs
+        // Tabs para KPIs
         const tabs = document.querySelectorAll('.tab-btn');
         const contents = document.querySelectorAll('.tab-content');
-        tabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                const targetId = tab.getAttribute('data-tab');
-                tabs.forEach(t => {
-                    t.classList.remove('bg-white', 'text-primary', 'shadow-sm');
-                    t.classList.add('bg-gray-100', 'text-gray-600');
+        if (tabs.length) {
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const targetId = tab.getAttribute('data-tab');
+                    tabs.forEach(t => {
+                        t.classList.remove('bg-white', 'text-primary', 'shadow-sm');
+                        t.classList.add('bg-gray-100', 'text-gray-600');
+                    });
+                    tab.classList.add('bg-white', 'text-primary', 'shadow-sm');
+                    contents.forEach(c => c.classList.remove('active'));
+                    const targetElement = document.getElementById(targetId);
+                    if (targetElement) targetElement.classList.add('active');
                 });
-                tab.classList.add('bg-white', 'text-primary', 'shadow-sm');
-                contents.forEach(c => c.classList.remove('active'));
-                document.getElementById(targetId).classList.add('active');
             });
-        });
+        }
     </script>
 </body>
 </html>
