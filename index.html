@@ -25,8 +25,6 @@
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <!-- Font Awesome para iconos (más confiables que Lucide en móvil) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
     <script>
@@ -72,18 +70,10 @@
         .card-hover { transition: all 0.3s ease; }
         .card-hover:hover { transform: translateY(-5px); box-shadow: 0 20px 25px -12px rgba(0, 0, 0, 0.15); }
         
-        /* Menú lateral mejorado */
-        .app-menu-item { transition: all 0.2s ease; cursor: pointer; border-radius: 12px; }
-        .app-menu-item:hover { background-color: #f1f5f9; transform: translateX(5px); }
-        .app-menu-item.active { background: linear-gradient(135deg, #E11D48 0%, #F97316 100%); color: white; box-shadow: 0 4px 12px rgba(225, 29, 72, 0.3); }
-        .app-menu-item.active i { color: white; }
-        
-        /* Menú hamburguesa mejorado */
+        /* Menú hamburguesa */
         .mobile-menu { transform: translateX(100%); transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1); top: 0; right: 0; position: fixed; width: 280px; height: 100%; background: white; z-index: 40; padding-top: 80px; padding-left: 24px; padding-right: 24px; box-shadow: -5px 0 30px rgba(0,0,0,0.1); }
         .mobile-menu.open { transform: translateX(0); }
         body.menu-open { overflow: hidden; }
-        
-        /* Botón hamburguesa */
         .hamburger-line { width: 24px; height: 2px; background-color: #1f2937; border-radius: 2px; transition: all 0.3s ease; }
         
         /* Pizza flotante de fondo */
@@ -94,14 +84,12 @@
         ::-webkit-scrollbar-track { background: #f1f1f1; }
         ::-webkit-scrollbar-thumb { background: linear-gradient(135deg, #E11D48, #F97316); border-radius: 4px; }
         
-        /* Fondo de pizza en secciones */
+        /* Fondo de pizza en secciones blancas */
         .pizza-bg-section { position: relative; background-color: white; overflow: hidden; }
         .pizza-bg-section::before { content: "🍕"; position: absolute; font-size: 180px; opacity: 0.04; bottom: -30px; right: -30px; pointer-events: none; transform: rotate(-15deg); }
         .pizza-bg-section::after { content: "🍕"; position: absolute; font-size: 120px; opacity: 0.04; top: -20px; left: -20px; pointer-events: none; transform: rotate(10deg); }
         
-        /* Ajustes móviles */
         @media (max-width: 768px) {
-            .container-padding { padding-left: 16px; padding-right: 16px; }
             h1 { font-size: 2rem; }
             .mobile-menu { width: 85%; }
         }
@@ -121,37 +109,27 @@
         <div class="floating-pizza text-8xl animate-float" style="top: 85%; left: 10%; opacity: 0.03;">🍕</div>
     </div>
 
-    <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M389BPTQ" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
-    <!-- ==================== HEADER MEJORADO PARA MÓVIL ==================== -->
+    <!-- ==================== HEADER ==================== -->
     <header class="fixed w-full glass-effect shadow-sm z-50 transition-all duration-300" id="main-header">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
                 <a href="#inicio" class="flex items-center gap-2 z-20 relative">
-                    <div class="w-9 h-9 bg-gradient-to-r from-primary to-secondary rounded-xl flex items-center justify-center text-white font-bold text-lg shadow-md">
-                        🍕
-                    </div>
-                    <span class="font-extrabold text-xl tracking-tight text-dark">
-                        Pizz<span class="gradient-text">App</span>
-                    </span>
+                    <div class="w-9 h-9 bg-gradient-to-r from-primary to-secondary rounded-xl flex items-center justify-center text-white font-bold text-lg shadow-md">🍕</div>
+                    <span class="font-extrabold text-xl tracking-tight text-dark">Pizz<span class="gradient-text">App</span></span>
                 </a>
 
-                <!-- Menú Desktop -->
                 <nav class="hidden md:flex space-x-6">
                     <a href="#problema" class="text-gray-600 hover:text-primary transition-colors text-sm font-medium">Problema</a>
                     <a href="#solucion" class="text-gray-600 hover:text-primary transition-colors text-sm font-medium">Solución</a>
-                    <a href="#demo" class="text-gray-600 hover:text-primary transition-colors text-sm font-medium">Demo</a>
                     <a href="#kpis" class="text-gray-600 hover:text-primary transition-colors text-sm font-medium">KPIs</a>
                     <a href="#calculadora" class="text-gray-600 hover:text-primary transition-colors text-sm font-medium">Calculadora</a>
                     <a href="#contacto" class="text-gray-600 hover:text-primary transition-colors text-sm font-medium">Contacto</a>
                 </nav>
 
                 <div class="flex items-center gap-3">
-                    <a href="#contacto" class="hidden md:block bg-gradient-to-r from-primary to-secondary text-white px-5 py-2 rounded-full font-semibold hover:shadow-lg text-sm shadow-md">
-                        Solicitar demo
-                    </a>
-                    <!-- Botón hamburguesa mejorado -->
+                    <a href="#contacto" class="hidden md:block bg-gradient-to-r from-primary to-secondary text-white px-5 py-2 rounded-full font-semibold hover:shadow-lg text-sm shadow-md">Solicitar demo</a>
                     <button id="menu-btn" class="md:hidden relative w-10 h-10 rounded-xl hover:bg-gray-100 transition-all flex flex-col items-center justify-center gap-1.5 z-20">
                         <span class="hamburger-line" id="line1"></span>
                         <span class="hamburger-line" id="line2"></span>
@@ -161,84 +139,40 @@
             </div>
         </div>
 
-        <!-- Menú Móvil mejorado -->
         <div id="mobile-menu" class="mobile-menu">
             <div class="flex flex-col gap-1">
                 <div class="pb-6 mb-3 border-b border-gray-100">
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 bg-gradient-to-r from-primary to-secondary rounded-xl flex items-center justify-center text-white text-xl">🍕</div>
-                        <span class="font-bold text-xl text-dark">Pizz<span class="text-primary">App</span></span>
-                    </div>
+                    <div class="flex items-center gap-3"><div class="w-10 h-10 bg-gradient-to-r from-primary to-secondary rounded-xl flex items-center justify-center text-white text-xl">🍕</div><span class="font-bold text-xl text-dark">Pizz<span class="text-primary">App</span></span></div>
                     <p class="text-xs text-gray-400 mt-2">Gestión inteligente para pizzerías</p>
                 </div>
-                
-                <a href="#problema" class="menu-link flex items-center gap-3 py-3 px-4 text-gray-700 font-medium rounded-xl hover:bg-gray-50 hover:text-primary transition-all">
-                    <i class="fas fa-exclamation-triangle w-5 text-gray-400"></i>
-                    <span>Problema</span>
-                </a>
-                <a href="#solucion" class="menu-link flex items-center gap-3 py-3 px-4 text-gray-700 font-medium rounded-xl hover:bg-gray-50 hover:text-primary transition-all">
-                    <i class="fas fa-check-circle w-5 text-gray-400"></i>
-                    <span>Solución</span>
-                </a>
-                <a href="#demo" class="menu-link flex items-center gap-3 py-3 px-4 text-gray-700 font-medium rounded-xl hover:bg-gray-50 hover:text-primary transition-all">
-                    <i class="fas fa-mobile-alt w-5 text-gray-400"></i>
-                    <span>Demo</span>
-                </a>
-                <a href="#kpis" class="menu-link flex items-center gap-3 py-3 px-4 text-gray-700 font-medium rounded-xl hover:bg-gray-50 hover:text-primary transition-all">
-                    <i class="fas fa-chart-line w-5 text-gray-400"></i>
-                    <span>KPIs</span>
-                </a>
-                <a href="#calculadora" class="menu-link flex items-center gap-3 py-3 px-4 text-gray-700 font-medium rounded-xl hover:bg-gray-50 hover:text-primary transition-all">
-                    <i class="fas fa-calculator w-5 text-gray-400"></i>
-                    <span>Calculadora</span>
-                </a>
-                <a href="#contacto" class="menu-link flex items-center gap-3 py-3 px-4 text-gray-700 font-medium rounded-xl hover:bg-gray-50 hover:text-primary transition-all">
-                    <i class="fas fa-envelope w-5 text-gray-400"></i>
-                    <span>Contacto</span>
-                </a>
-                
-                <div class="mt-6 pt-4 border-t border-gray-100">
-                    <a href="#contacto" class="flex items-center justify-center gap-2 bg-gradient-to-r from-primary to-secondary text-white px-4 py-3 rounded-xl font-semibold text-center hover:shadow-lg transition-all">
-                        <i class="fas fa-rocket"></i>
-                        <span>Solicitar demo</span>
-                    </a>
-                </div>
+                <a href="#problema" class="menu-link flex items-center gap-3 py-3 px-4 text-gray-700 font-medium rounded-xl hover:bg-gray-50 hover:text-primary transition-all"><i class="fas fa-exclamation-triangle w-5 text-gray-400"></i><span>Problema</span></a>
+                <a href="#solucion" class="menu-link flex items-center gap-3 py-3 px-4 text-gray-700 font-medium rounded-xl hover:bg-gray-50 hover:text-primary transition-all"><i class="fas fa-check-circle w-5 text-gray-400"></i><span>Solución</span></a>
+                <a href="#kpis" class="menu-link flex items-center gap-3 py-3 px-4 text-gray-700 font-medium rounded-xl hover:bg-gray-50 hover:text-primary transition-all"><i class="fas fa-chart-line w-5 text-gray-400"></i><span>KPIs</span></a>
+                <a href="#calculadora" class="menu-link flex items-center gap-3 py-3 px-4 text-gray-700 font-medium rounded-xl hover:bg-gray-50 hover:text-primary transition-all"><i class="fas fa-calculator w-5 text-gray-400"></i><span>Calculadora</span></a>
+                <a href="#contacto" class="menu-link flex items-center gap-3 py-3 px-4 text-gray-700 font-medium rounded-xl hover:bg-gray-50 hover:text-primary transition-all"><i class="fas fa-envelope w-5 text-gray-400"></i><span>Contacto</span></a>
+                <div class="mt-6 pt-4 border-t border-gray-100"><a href="#contacto" class="flex items-center justify-center gap-2 bg-gradient-to-r from-primary to-secondary text-white px-4 py-3 rounded-xl font-semibold text-center hover:shadow-lg transition-all"><i class="fas fa-rocket"></i><span>Solicitar demo</span></a></div>
             </div>
         </div>
     </header>
 
-    <!-- ==================== HERO PRINCIPAL ==================== -->
+    <!-- ==================== HERO CON TELÉFONO ==================== -->
     <section id="inicio" class="pt-28 pb-16 lg:pt-36 lg:pb-24 overflow-hidden relative z-10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                 <div class="text-center lg:text-left z-10 animate-on-scroll">
                     <div class="inline-flex items-center gap-2 bg-gradient-to-r from-primary/10 to-secondary/10 px-4 py-2 rounded-full mb-6">
-                        <span class="relative flex h-2 w-2">
-                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
-                            <span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
-                        </span>
+                        <span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span></span>
                         <span class="text-sm font-semibold text-primary">Aplicación híbrida para pizzerías</span>
                     </div>
-                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-dark leading-tight mb-6">
-                        Optimiza pedidos, inventario y clientes con
-                        <span class="gradient-text">PizzApp</span>
-                    </h1>
-                    <p class="text-lg md:text-xl text-gray-600 mb-8 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
-                        La plataforma todo-en-uno que reduce errores en pedidos, controla tu inventario en tiempo real y te ofrece reportes clave para hacer crecer tu negocio.
-                    </p>
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-dark leading-tight mb-6">Optimiza pedidos, inventario y clientes con <span class="gradient-text">PizzApp</span></h1>
+                    <p class="text-lg md:text-xl text-gray-600 mb-8 max-w-2xl mx-auto lg:mx-0 leading-relaxed">La plataforma todo-en-uno que reduce errores en pedidos, controla tu inventario en tiempo real y te ofrece reportes clave para hacer crecer tu negocio.</p>
                     <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                        <a href="#contacto" class="group bg-gradient-to-r from-primary to-secondary text-white px-6 md:px-8 py-3 rounded-full font-bold text-base md:text-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-2 shadow-lg">
-                            <i class="fas fa-rocket text-sm"></i>
-                            Probar PizzApp
-                        </a>
-                        <a href="#demo" class="border-2 border-gray-300 text-gray-700 px-6 md:px-8 py-3 rounded-full font-semibold text-base md:text-lg hover:border-primary hover:text-primary transition-all duration-300 flex items-center justify-center gap-2">
-                            <i class="fas fa-mobile-alt"></i>
-                            Ver Demo
-                        </a>
+                        <a href="#contacto" class="group bg-gradient-to-r from-primary to-secondary text-white px-6 md:px-8 py-3 rounded-full font-bold text-base md:text-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-2 shadow-lg"><i class="fas fa-rocket text-sm"></i> Probar PizzApp</a>
+                        <a href="#calculadora" class="border-2 border-gray-300 text-gray-700 px-6 md:px-8 py-3 rounded-full font-semibold text-base md:text-lg hover:border-primary hover:text-primary transition-all duration-300 flex items-center justify-center gap-2"><i class="fas fa-calculator"></i> Calculadora</a>
                     </div>
                 </div>
 
-                <!-- TELÉFONO CON CARRUSEL -->
+                <!-- TELÉFONO CON CARRUSEL AUTOMÁTICO -->
                 <div class="relative mx-auto w-full max-w-md lg:max-w-none animate-on-scroll delay-200">
                     <div class="relative mx-auto w-[280px] sm:w-[320px]">
                         <div class="aspect-[9/16] bg-gray-900 rounded-[3rem] shadow-2xl border-[6px] border-gray-800 overflow-hidden relative">
@@ -249,16 +183,10 @@
                             <div class="absolute bottom-2 left-1/2 -translate-x-1/2 w-24 h-1 bg-gray-700 rounded-full z-20"></div>
                             <div id="hero-carousel-container" class="relative w-full h-full overflow-hidden bg-white">
                                 <div id="hero-carousel-images" class="relative w-full h-full"></div>
-                                <button id="hero-prev" class="absolute left-2 top-1/2 -translate-y-1/2 w-7 h-7 bg-white/80 rounded-full flex items-center justify-center shadow-lg z-30 nav-btn">
-                                    <i class="fas fa-chevron-left text-xs"></i>
-                                </button>
-                                <button id="hero-next" class="absolute right-2 top-1/2 -translate-y-1/2 w-7 h-7 bg-white/80 rounded-full flex items-center justify-center shadow-lg z-30 nav-btn">
-                                    <i class="fas fa-chevron-right text-xs"></i>
-                                </button>
+                                <button id="hero-prev" class="absolute left-2 top-1/2 -translate-y-1/2 w-7 h-7 bg-white/80 rounded-full flex items-center justify-center shadow-lg z-30 nav-btn"><i class="fas fa-chevron-left text-xs"></i></button>
+                                <button id="hero-next" class="absolute right-2 top-1/2 -translate-y-1/2 w-7 h-7 bg-white/80 rounded-full flex items-center justify-center shadow-lg z-30 nav-btn"><i class="fas fa-chevron-right text-xs"></i></button>
                                 <div id="hero-dots" class="absolute bottom-4 left-0 right-0 flex justify-center gap-2 z-30"></div>
-                                <div class="absolute bottom-0 left-0 right-0 h-1 bg-gray-200 z-30">
-                                    <div id="hero-progress-bar" class="h-full bg-gradient-to-r from-primary to-secondary transition-all duration-300" style="width: 0%"></div>
-                                </div>
+                                <div class="absolute bottom-0 left-0 right-0 h-1 bg-gray-200 z-30"><div id="hero-progress-bar" class="h-full bg-gradient-to-r from-primary to-secondary transition-all duration-300" style="width: 0%"></div></div>
                             </div>
                         </div>
                     </div>
@@ -285,26 +213,10 @@
             <h2 class="text-3xl md:text-4xl font-bold mb-6 animate-on-scroll">⚠️ El problema que resuelve PizzApp</h2>
             <p class="text-lg md:text-xl text-gray-400 mb-12 animate-on-scroll max-w-3xl mx-auto">Actualmente, muchas pizzerías gestionan pedidos e inventario de forma manual, lo que provoca errores, pérdida de insumos, retrasos y poca claridad para decidir.</p>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
-                <div class="bg-gray-800/60 p-5 md:p-6 rounded-2xl border border-gray-700 card-hover animate-on-scroll">
-                    <div class="w-12 h-12 bg-red-500/20 rounded-xl flex items-center justify-center text-red-400 mb-4"><i class="fas fa-times-circle text-xl"></i></div>
-                    <h3 class="text-lg md:text-xl font-bold mb-2">Errores en pedidos</h3>
-                    <p class="text-gray-400 text-sm">La toma manual aumenta equivocaciones.</p>
-                </div>
-                <div class="bg-gray-800/60 p-5 md:p-6 rounded-2xl border border-gray-700 card-hover animate-on-scroll delay-100">
-                    <div class="w-12 h-12 bg-red-500/20 rounded-xl flex items-center justify-center text-red-400 mb-4"><i class="fas fa-boxes text-xl"></i></div>
-                    <h3 class="text-lg md:text-xl font-bold mb-2">Falta de inventario</h3>
-                    <p class="text-gray-400 text-sm">Control deficiente de insumos.</p>
-                </div>
-                <div class="bg-gray-800/60 p-5 md:p-6 rounded-2xl border border-gray-700 card-hover animate-on-scroll delay-200">
-                    <div class="w-12 h-12 bg-red-500/20 rounded-xl flex items-center justify-center text-red-400 mb-4"><i class="fas fa-trash-alt text-xl"></i></div>
-                    <h3 class="text-lg md:text-xl font-bold mb-2">Pérdida de insumos</h3>
-                    <p class="text-gray-400 text-sm">Poca trazabilidad favorece desperdicios.</p>
-                </div>
-                <div class="bg-gray-800/60 p-5 md:p-6 rounded-2xl border border-gray-700 card-hover animate-on-scroll delay-300">
-                    <div class="w-12 h-12 bg-red-500/20 rounded-xl flex items-center justify-center text-red-400 mb-4"><i class="fas fa-clock text-xl"></i></div>
-                    <h3 class="text-lg md:text-xl font-bold mb-2">Atención lenta</h3>
-                    <p class="text-gray-400 text-sm">Retrasos afectan la experiencia.</p>
-                </div>
+                <div class="bg-gray-800/60 p-5 md:p-6 rounded-2xl border border-gray-700 card-hover animate-on-scroll"><div class="w-12 h-12 bg-red-500/20 rounded-xl flex items-center justify-center text-red-400 mb-4"><i class="fas fa-times-circle text-xl"></i></div><h3 class="text-lg md:text-xl font-bold mb-2">Errores en pedidos</h3><p class="text-gray-400 text-sm">La toma manual aumenta equivocaciones.</p></div>
+                <div class="bg-gray-800/60 p-5 md:p-6 rounded-2xl border border-gray-700 card-hover animate-on-scroll delay-100"><div class="w-12 h-12 bg-red-500/20 rounded-xl flex items-center justify-center text-red-400 mb-4"><i class="fas fa-boxes text-xl"></i></div><h3 class="text-lg md:text-xl font-bold mb-2">Falta de inventario</h3><p class="text-gray-400 text-sm">Control deficiente de insumos.</p></div>
+                <div class="bg-gray-800/60 p-5 md:p-6 rounded-2xl border border-gray-700 card-hover animate-on-scroll delay-200"><div class="w-12 h-12 bg-red-500/20 rounded-xl flex items-center justify-center text-red-400 mb-4"><i class="fas fa-trash-alt text-xl"></i></div><h3 class="text-lg md:text-xl font-bold mb-2">Pérdida de insumos</h3><p class="text-gray-400 text-sm">Poca trazabilidad favorece desperdicios.</p></div>
+                <div class="bg-gray-800/60 p-5 md:p-6 rounded-2xl border border-gray-700 card-hover animate-on-scroll delay-300"><div class="w-12 h-12 bg-red-500/20 rounded-xl flex items-center justify-center text-red-400 mb-4"><i class="fas fa-clock text-xl"></i></div><h3 class="text-lg md:text-xl font-bold mb-2">Atención lenta</h3><p class="text-gray-400 text-sm">Retrasos afectan la experiencia.</p></div>
             </div>
         </div>
     </section>
@@ -331,67 +243,6 @@
                     <div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-4 shadow-xl border border-gray-100">
                         <img src="imagenes/WhatsApp%20Image%202026-06-13%20at%2010.02.24%20PM.jpeg" alt="Dashboard" class="w-full rounded-xl shadow-md">
                         <p class="text-center text-gray-400 text-xs mt-3">📊 Panel de control y métricas</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ==================== DEMO CON MENÚ LATERAL ==================== -->
-    <section id="demo" class="py-20 bg-gray-50 relative z-10">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12 animate-on-scroll">
-                <h2 class="text-3xl md:text-4xl font-bold text-dark mb-4">📱 Explorar la aplicación</h2>
-                <p class="text-gray-600 max-w-2xl mx-auto">Las capturas cambian automáticamente cada 4 segundos. También puedes navegar manualmente.</p>
-            </div>
-
-            <div class="flex flex-col lg:flex-row gap-8 justify-center items-start">
-                <!-- Menú lateral -->
-                <div class="bg-white rounded-2xl shadow-xl p-4 w-full lg:w-72 animate-on-scroll">
-                    <div class="border-b border-gray-100 pb-3 mb-3 px-3">
-                        <h3 class="font-bold text-gray-400 text-xs uppercase tracking-wider">📱 Menú principal</h3>
-                    </div>
-                    <nav class="space-y-1">
-                        <div class="app-menu-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-700 font-medium" data-screen="0">
-                            <i class="fas fa-home w-5"></i><span>🏠 Inicio</span>
-                        </div>
-                        <div class="app-menu-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-700 font-medium" data-screen="4">
-                            <i class="fas fa-shopping-cart w-5"></i><span>🛒 Mi Carrito</span>
-                        </div>
-                        <div class="app-menu-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-700 font-medium" data-screen="5">
-                            <i class="fas fa-clipboard-list w-5"></i><span>📋 Mis Pedidos</span>
-                        </div>
-                        <div class="app-menu-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-700 font-medium" data-screen="2">
-                            <i class="fas fa-cog w-5"></i><span>⚙️ Configuración</span>
-                        </div>
-                    </nav>
-                    <div class="border-t border-gray-100 pt-3 mt-3">
-                        <div class="app-menu-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-red-500 font-medium" data-screen="0">
-                            <i class="fas fa-sign-out-alt w-5"></i><span>🚪 Cerrar Sesión</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Contenedor de imagen -->
-                <div class="flex-1 bg-white rounded-2xl shadow-xl p-6 animate-on-scroll delay-100">
-                    <div class="flex justify-center gap-4 mb-6">
-                        <button id="demo-prev" class="nav-btn bg-gray-100 p-3 rounded-full shadow-md hover:bg-primary hover:text-white transition-all">
-                            <i class="fas fa-chevron-left"></i>
-                        </button>
-                        <button id="demo-next" class="nav-btn bg-gray-100 p-3 rounded-full shadow-md hover:bg-primary hover:text-white transition-all">
-                            <i class="fas fa-chevron-right"></i>
-                        </button>
-                    </div>
-                    
-                    <div id="demo-image-container" class="relative bg-gray-100 rounded-2xl overflow-hidden shadow-inner" style="min-height: 450px;">
-                        <div id="demo-carousel-images" class="relative w-full h-full"></div>
-                    </div>
-                    
-                    <div class="flex justify-center gap-2 mt-4" id="demo-dots"></div>
-                    <div class="text-center mt-4">
-                        <p id="screen-title" class="text-sm font-semibold text-primary bg-gray-100 px-4 py-2 rounded-full inline-block shadow-sm">
-                            Pantalla 1 de 6
-                        </p>
                     </div>
                 </div>
             </div>
@@ -513,7 +364,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 md:gap-10 mb-10 md:mb-12">
                 <div class="lg:col-span-2"><div class="flex items-center gap-2 mb-4"><div class="w-8 h-8 bg-gradient-to-r from-primary to-secondary rounded-xl flex items-center justify-center text-white">🍕</div><span class="font-bold text-xl text-white">Pizz<span class="text-primary">App</span></span></div><p class="text-sm">Gestión inteligente para pizzerías. Moderniza tu negocio con tecnología híbrida.</p></div>
-                <div><h4 class="text-white font-semibold mb-4">📱 Producto</h4><ul class="space-y-2 text-sm"><li><a href="#demo" class="hover:text-white">Demo</a></li><li><a href="#kpis" class="hover:text-white">KPIs</a></li><li><a href="#calculadora" class="hover:text-white">Calculadora</a></li></ul></div>
+                <div><h4 class="text-white font-semibold mb-4">📱 Producto</h4><ul class="space-y-2 text-sm"><li><a href="#kpis" class="hover:text-white">KPIs</a></li><li><a href="#calculadora" class="hover:text-white">Calculadora</a></li></ul></div>
                 <div><h4 class="text-white font-semibold mb-4">📚 Recursos</h4><ul class="space-y-2 text-sm"><li><a href="#contacto" class="hover:text-white">Contacto</a></li></ul></div>
                 <div><h4 class="text-white font-semibold mb-4">👥 Equipo</h4><ul class="space-y-2 text-sm"><li><a href="#equipo" class="hover:text-white">Sobre nosotros</a></li></ul></div>
             </div>
@@ -522,7 +373,6 @@
     </footer>
 
     <script>
-        // Lista de imágenes
         const images = [
             "imagenes/WhatsApp%20Image%202026-06-13%20at%2010.00.24%20PM.jpeg",
             "imagenes/WhatsApp%20Image%202026-06-13%20at%2010.01.56%20PM.jpeg",
@@ -531,26 +381,25 @@
             "imagenes/WhatsApp%20Image%202026-06-13%20at%2010.05.13%20PM.jpeg",
             "imagenes/WhatsApp%20Image%202026-06-13%20at%2010.06.16%20PM.jpeg"
         ];
-        const titles = ["Inicio", "Registro", "Dashboard", "Gestión de pedidos", "Carrito", "Seguimiento"];
         let globalIndex = 0;
         let autoInterval;
         const AUTO_DELAY = 4000;
 
-        function renderImages(containerId) {
-            const container = document.getElementById(containerId);
+        function renderHeroImages() {
+            const container = document.getElementById('hero-carousel-images');
             if (!container) return;
             container.innerHTML = '';
             images.forEach((src, idx) => {
                 const img = document.createElement('img');
                 img.src = src;
-                img.alt = titles[idx];
+                img.alt = `Pantalla ${idx+1}`;
                 img.className = `absolute top-0 left-0 w-full h-full object-cover object-top transition-opacity duration-500 ${idx === globalIndex ? 'opacity-100 z-10' : 'opacity-0 z-0'}`;
                 container.appendChild(img);
             });
         }
 
-        function updateDots(dotsId) {
-            const dots = document.getElementById(dotsId);
+        function updateDots() {
+            const dots = document.getElementById('hero-dots');
             if (!dots) return;
             dots.innerHTML = '';
             images.forEach((_, idx) => {
@@ -561,28 +410,17 @@
             });
         }
 
-        function updateTitle() {
-            const titleEl = document.getElementById('screen-title');
-            if (titleEl) titleEl.innerHTML = `<span class="text-sm font-semibold text-primary bg-gray-100 px-4 py-2 rounded-full inline-block shadow-sm">📱 ${titles[globalIndex]}</span>`;
-        }
-
         function goToImage(index) {
             globalIndex = index;
-            const containers = ['hero-carousel-images', 'demo-carousel-images'];
-            containers.forEach(id => {
-                const container = document.getElementById(id);
-                if (container) {
-                    const imgs = container.querySelectorAll('img');
-                    imgs.forEach((img, i) => {
-                        if (i === globalIndex) { img.classList.add('opacity-100', 'z-10'); img.classList.remove('opacity-0', 'z-0'); }
-                        else { img.classList.add('opacity-0', 'z-0'); img.classList.remove('opacity-100', 'z-10'); }
-                    });
-                }
-            });
-            updateDots('hero-dots');
-            updateDots('demo-dots');
-            updateTitle();
-            
+            const container = document.getElementById('hero-carousel-images');
+            if (container) {
+                const imgs = container.querySelectorAll('img');
+                imgs.forEach((img, i) => {
+                    if (i === globalIndex) { img.classList.add('opacity-100', 'z-10'); img.classList.remove('opacity-0', 'z-0'); }
+                    else { img.classList.add('opacity-0', 'z-0'); img.classList.remove('opacity-100', 'z-10'); }
+                });
+            }
+            updateDots();
             const progressBar = document.getElementById('hero-progress-bar');
             if (progressBar && autoInterval) {
                 progressBar.style.transition = 'none';
@@ -607,30 +445,13 @@
         
         function stopAuto() { if (autoInterval) { clearInterval(autoInterval); autoInterval = null; } }
 
-        // Inicializar
-        renderImages('hero-carousel-images');
-        renderImages('demo-carousel-images');
-        updateDots('hero-dots');
-        updateDots('demo-dots');
-        updateTitle();
+        renderHeroImages();
+        updateDots();
         
         document.getElementById('hero-prev')?.addEventListener('click', () => { stopAuto(); prevImage(); startAuto(); });
         document.getElementById('hero-next')?.addEventListener('click', () => { stopAuto(); nextImage(); startAuto(); });
-        document.getElementById('demo-prev')?.addEventListener('click', () => { stopAuto(); prevImage(); startAuto(); });
-        document.getElementById('demo-next')?.addEventListener('click', () => { stopAuto(); nextImage(); startAuto(); });
         
         startAuto();
-
-        // Menú lateral
-        const menuItems = document.querySelectorAll('.app-menu-item');
-        menuItems.forEach(item => {
-            item.addEventListener('click', () => {
-                const screen = parseInt(item.getAttribute('data-screen'));
-                if (!isNaN(screen)) { stopAuto(); goToImage(screen); startAuto(); }
-                menuItems.forEach(mi => mi.classList.remove('active'));
-                item.classList.add('active');
-            });
-        });
 
         // Menú hamburguesa
         const menuBtn = document.getElementById('menu-btn');
