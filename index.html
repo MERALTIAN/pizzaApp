@@ -19,13 +19,15 @@
     </script>
 
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover" />
     <meta name="description" content="PizzApp: Plataforma híbrida para gestionar pedidos, inventario y clientes de tu pizzería.">
     <title>PizzApp | Gestión inteligente para pizzerías</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome para iconos (más confiables que Lucide en móvil) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
     <script>
         tailwind.config = {
@@ -42,7 +44,6 @@
                         'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
                         'float': 'float 4s ease-in-out infinite',
                         'float-slow': 'float 6s ease-in-out infinite',
-                        'spin-slow': 'spin 20s linear infinite',
                     },
                     keyframes: {
                         float: { '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' }, '50%': { transform: 'translateY(-15px) rotate(5deg)' } },
@@ -78,81 +79,66 @@
         .app-menu-item.active i { color: white; }
         
         /* Menú hamburguesa mejorado */
-        .mobile-menu { transform: translateX(100%); transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1); }
+        .mobile-menu { transform: translateX(100%); transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1); top: 0; right: 0; position: fixed; width: 280px; height: 100%; background: white; z-index: 40; padding-top: 80px; padding-left: 24px; padding-right: 24px; box-shadow: -5px 0 30px rgba(0,0,0,0.1); }
         .mobile-menu.open { transform: translateX(0); }
         body.menu-open { overflow: hidden; }
         
+        /* Botón hamburguesa */
+        .hamburger-line { width: 24px; height: 2px; background-color: #1f2937; border-radius: 2px; transition: all 0.3s ease; }
+        
         /* Pizza flotante de fondo */
-        .floating-pizza { position: absolute; pointer-events: none; z-index: 0; }
+        .floating-pizza { position: fixed; pointer-events: none; z-index: 0; }
         
         /* Scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #f1f1f1; }
         ::-webkit-scrollbar-thumb { background: linear-gradient(135deg, #E11D48, #F97316); border-radius: 4px; }
         
-        /* Sección con fondo de pizza */
-        .pizza-bg-section {
-            position: relative;
-            background-color: white;
-        }
-        .pizza-bg-section::before {
-            content: "🍕";
-            position: absolute;
-            font-size: 180px;
-            opacity: 0.04;
-            bottom: -30px;
-            right: -30px;
-            pointer-events: none;
-            transform: rotate(-15deg);
-        }
-        .pizza-bg-section::after {
-            content: "🍕";
-            position: absolute;
-            font-size: 120px;
-            opacity: 0.04;
-            top: -20px;
-            left: -20px;
-            pointer-events: none;
-            transform: rotate(10deg);
+        /* Fondo de pizza en secciones */
+        .pizza-bg-section { position: relative; background-color: white; overflow: hidden; }
+        .pizza-bg-section::before { content: "🍕"; position: absolute; font-size: 180px; opacity: 0.04; bottom: -30px; right: -30px; pointer-events: none; transform: rotate(-15deg); }
+        .pizza-bg-section::after { content: "🍕"; position: absolute; font-size: 120px; opacity: 0.04; top: -20px; left: -20px; pointer-events: none; transform: rotate(10deg); }
+        
+        /* Ajustes móviles */
+        @media (max-width: 768px) {
+            .container-padding { padding-left: 16px; padding-right: 16px; }
+            h1 { font-size: 2rem; }
+            .mobile-menu { width: 85%; }
         }
     </style>
 </head>
 
 <body class="bg-lightbg antialiased relative overflow-x-hidden">
 
-    <!-- Fondo con pizzas flotantes en toda la página -->
+    <!-- Fondo con pizzas flotantes -->
     <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-        <div class="floating-pizza text-8xl animate-float" style="top: 8%; left: -3%; opacity: 0.05;">🍕</div>
-        <div class="floating-pizza text-7xl animate-float-slow" style="top: 25%; right: -2%; opacity: 0.05;">🍕</div>
-        <div class="floating-pizza text-9xl animate-float" style="bottom: 15%; left: 5%; opacity: 0.04;">🍕</div>
-        <div class="floating-pizza text-6xl animate-float-slow" style="bottom: 35%; right: 3%; opacity: 0.05;">🍕</div>
-        <div class="floating-pizza text-5xl animate-float" style="top: 55%; left: -1%; opacity: 0.04;">🍕</div>
-        <div class="floating-pizza text-7xl animate-float-slow" style="top: 75%; right: 6%; opacity: 0.04;">🍕</div>
-        <div class="floating-pizza text-8xl animate-float" style="top: 45%; left: 8%; opacity: 0.04;">🍕</div>
-        <div class="floating-pizza text-6xl animate-float-slow" style="bottom: 5%; right: -2%; opacity: 0.05;">🍕</div>
-        <div class="floating-pizza text-5xl animate-float" style="top: 88%; left: 12%; opacity: 0.04;">🍕</div>
-        <div class="floating-pizza text-7xl animate-float-slow" style="top: 15%; left: 20%; opacity: 0.03;">🍕</div>
-        <div class="floating-pizza text-9xl animate-float" style="bottom: 50%; right: 15%; opacity: 0.03;">🍕</div>
+        <div class="floating-pizza text-8xl animate-float" style="top: 5%; left: -5%; opacity: 0.04;">🍕</div>
+        <div class="floating-pizza text-7xl animate-float-slow" style="top: 20%; right: -3%; opacity: 0.04;">🍕</div>
+        <div class="floating-pizza text-9xl animate-float" style="bottom: 10%; left: -2%; opacity: 0.03;">🍕</div>
+        <div class="floating-pizza text-6xl animate-float-slow" style="bottom: 30%; right: 5%; opacity: 0.04;">🍕</div>
+        <div class="floating-pizza text-5xl animate-float" style="top: 50%; left: -2%; opacity: 0.03;">🍕</div>
+        <div class="floating-pizza text-7xl animate-float-slow" style="top: 70%; right: -2%; opacity: 0.03;">🍕</div>
+        <div class="floating-pizza text-8xl animate-float" style="top: 85%; left: 10%; opacity: 0.03;">🍕</div>
     </div>
 
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M389BPTQ" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
-    <!-- ==================== HEADER CON MENÚ HAMBURGUESA MEJORADO ==================== -->
+    <!-- ==================== HEADER MEJORADO PARA MÓVIL ==================== -->
     <header class="fixed w-full glass-effect shadow-sm z-50 transition-all duration-300" id="main-header">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
-                <a href="#inicio" class="flex items-center gap-2 group z-20 relative">
-                    <div class="w-9 h-9 bg-gradient-to-r from-primary to-secondary rounded-xl flex items-center justify-center text-white font-bold text-lg transition-all duration-300 group-hover:scale-110 shadow-md">
+                <a href="#inicio" class="flex items-center gap-2 z-20 relative">
+                    <div class="w-9 h-9 bg-gradient-to-r from-primary to-secondary rounded-xl flex items-center justify-center text-white font-bold text-lg shadow-md">
                         🍕
                     </div>
-                    <span class="font-extrabold text-xl tracking-tight text-dark group-hover:text-primary transition-colors">
+                    <span class="font-extrabold text-xl tracking-tight text-dark">
                         Pizz<span class="gradient-text">App</span>
                     </span>
                 </a>
 
                 <!-- Menú Desktop -->
-                <nav class="hidden md:flex space-x-8">
+                <nav class="hidden md:flex space-x-6">
                     <a href="#problema" class="text-gray-600 hover:text-primary transition-colors text-sm font-medium">Problema</a>
                     <a href="#solucion" class="text-gray-600 hover:text-primary transition-colors text-sm font-medium">Solución</a>
                     <a href="#demo" class="text-gray-600 hover:text-primary transition-colors text-sm font-medium">Demo</a>
@@ -161,50 +147,76 @@
                     <a href="#contacto" class="text-gray-600 hover:text-primary transition-colors text-sm font-medium">Contacto</a>
                 </nav>
 
-                <!-- Botón Desktop + Hamburguesa móvil -->
                 <div class="flex items-center gap-3">
-                    <a href="#contacto" class="hidden md:block bg-gradient-to-r from-primary to-secondary text-white px-5 py-2 rounded-full font-semibold hover:shadow-lg hover:-translate-y-0.5 transform transition-all duration-300 text-sm shadow-md">
+                    <a href="#contacto" class="hidden md:block bg-gradient-to-r from-primary to-secondary text-white px-5 py-2 rounded-full font-semibold hover:shadow-lg text-sm shadow-md">
                         Solicitar demo
                     </a>
-                    <!-- Botón hamburguesa móvil mejorado -->
-                    <button id="menu-btn" class="md:hidden relative w-10 h-10 rounded-xl hover:bg-gray-100 transition-all duration-300 flex flex-col items-center justify-center gap-1.5 z-20">
-                        <span class="w-5 h-0.5 bg-gray-800 rounded-full transition-all duration-300" id="line1"></span>
-                        <span class="w-5 h-0.5 bg-gray-800 rounded-full transition-all duration-300" id="line2"></span>
-                        <span class="w-5 h-0.5 bg-gray-800 rounded-full transition-all duration-300" id="line3"></span>
+                    <!-- Botón hamburguesa mejorado -->
+                    <button id="menu-btn" class="md:hidden relative w-10 h-10 rounded-xl hover:bg-gray-100 transition-all flex flex-col items-center justify-center gap-1.5 z-20">
+                        <span class="hamburger-line" id="line1"></span>
+                        <span class="hamburger-line" id="line2"></span>
+                        <span class="hamburger-line" id="line3"></span>
                     </button>
                 </div>
             </div>
         </div>
 
         <!-- Menú Móvil mejorado -->
-        <div id="mobile-menu" class="mobile-menu fixed top-0 right-0 w-72 h-full bg-white shadow-2xl z-40 pt-20 px-6">
-            <div class="flex flex-col gap-2">
-                <div class="pb-4 mb-2 border-b border-gray-100">
-                    <div class="flex items-center gap-2">
+        <div id="mobile-menu" class="mobile-menu">
+            <div class="flex flex-col gap-1">
+                <div class="pb-6 mb-3 border-b border-gray-100">
+                    <div class="flex items-center gap-3">
                         <div class="w-10 h-10 bg-gradient-to-r from-primary to-secondary rounded-xl flex items-center justify-center text-white text-xl">🍕</div>
-                        <span class="font-bold text-xl">Pizz<span class="text-primary">App</span></span>
+                        <span class="font-bold text-xl text-dark">Pizz<span class="text-primary">App</span></span>
                     </div>
+                    <p class="text-xs text-gray-400 mt-2">Gestión inteligente para pizzerías</p>
                 </div>
-                <a href="#problema" class="menu-link py-3 px-4 text-gray-700 font-medium rounded-xl hover:bg-gray-50 hover:text-primary transition-all flex items-center gap-3"><i data-lucide="alert-circle" class="w-5 h-5"></i>Problema</a>
-                <a href="#solucion" class="menu-link py-3 px-4 text-gray-700 font-medium rounded-xl hover:bg-gray-50 hover:text-primary transition-all flex items-center gap-3"><i data-lucide="check-circle" class="w-5 h-5"></i>Solución</a>
-                <a href="#demo" class="menu-link py-3 px-4 text-gray-700 font-medium rounded-xl hover:bg-gray-50 hover:text-primary transition-all flex items-center gap-3"><i data-lucide="smartphone" class="w-5 h-5"></i>Demo</a>
-                <a href="#kpis" class="menu-link py-3 px-4 text-gray-700 font-medium rounded-xl hover:bg-gray-50 hover:text-primary transition-all flex items-center gap-3"><i data-lucide="bar-chart-3" class="w-5 h-5"></i>KPIs</a>
-                <a href="#calculadora" class="menu-link py-3 px-4 text-gray-700 font-medium rounded-xl hover:bg-gray-50 hover:text-primary transition-all flex items-center gap-3"><i data-lucide="calculator" class="w-5 h-5"></i>Calculadora</a>
-                <a href="#contacto" class="menu-link py-3 px-4 text-gray-700 font-medium rounded-xl hover:bg-gray-50 hover:text-primary transition-all flex items-center gap-3"><i data-lucide="mail" class="w-5 h-5"></i>Contacto</a>
-                <div class="mt-4 pt-4 border-t border-gray-100">
-                    <a href="#contacto" class="block text-center bg-gradient-to-r from-primary to-secondary text-white px-4 py-3 rounded-xl font-semibold hover:shadow-lg transition-all">Solicitar demo →</a>
+                
+                <a href="#problema" class="menu-link flex items-center gap-3 py-3 px-4 text-gray-700 font-medium rounded-xl hover:bg-gray-50 hover:text-primary transition-all">
+                    <i class="fas fa-exclamation-triangle w-5 text-gray-400"></i>
+                    <span>Problema</span>
+                </a>
+                <a href="#solucion" class="menu-link flex items-center gap-3 py-3 px-4 text-gray-700 font-medium rounded-xl hover:bg-gray-50 hover:text-primary transition-all">
+                    <i class="fas fa-check-circle w-5 text-gray-400"></i>
+                    <span>Solución</span>
+                </a>
+                <a href="#demo" class="menu-link flex items-center gap-3 py-3 px-4 text-gray-700 font-medium rounded-xl hover:bg-gray-50 hover:text-primary transition-all">
+                    <i class="fas fa-mobile-alt w-5 text-gray-400"></i>
+                    <span>Demo</span>
+                </a>
+                <a href="#kpis" class="menu-link flex items-center gap-3 py-3 px-4 text-gray-700 font-medium rounded-xl hover:bg-gray-50 hover:text-primary transition-all">
+                    <i class="fas fa-chart-line w-5 text-gray-400"></i>
+                    <span>KPIs</span>
+                </a>
+                <a href="#calculadora" class="menu-link flex items-center gap-3 py-3 px-4 text-gray-700 font-medium rounded-xl hover:bg-gray-50 hover:text-primary transition-all">
+                    <i class="fas fa-calculator w-5 text-gray-400"></i>
+                    <span>Calculadora</span>
+                </a>
+                <a href="#contacto" class="menu-link flex items-center gap-3 py-3 px-4 text-gray-700 font-medium rounded-xl hover:bg-gray-50 hover:text-primary transition-all">
+                    <i class="fas fa-envelope w-5 text-gray-400"></i>
+                    <span>Contacto</span>
+                </a>
+                
+                <div class="mt-6 pt-4 border-t border-gray-100">
+                    <a href="#contacto" class="flex items-center justify-center gap-2 bg-gradient-to-r from-primary to-secondary text-white px-4 py-3 rounded-xl font-semibold text-center hover:shadow-lg transition-all">
+                        <i class="fas fa-rocket"></i>
+                        <span>Solicitar demo</span>
+                    </a>
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- ==================== HERO PRINCIPAL (ÚNICO TELÉFONO) ==================== -->
+    <!-- ==================== HERO PRINCIPAL ==================== -->
     <section id="inicio" class="pt-28 pb-16 lg:pt-36 lg:pb-24 overflow-hidden relative z-10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                 <div class="text-center lg:text-left z-10 animate-on-scroll">
                     <div class="inline-flex items-center gap-2 bg-gradient-to-r from-primary/10 to-secondary/10 px-4 py-2 rounded-full mb-6">
-                        <span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span></span>
+                        <span class="relative flex h-2 w-2">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+                        </span>
                         <span class="text-sm font-semibold text-primary">Aplicación híbrida para pizzerías</span>
                     </div>
                     <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-dark leading-tight mb-6">
@@ -215,21 +227,19 @@
                         La plataforma todo-en-uno que reduce errores en pedidos, controla tu inventario en tiempo real y te ofrece reportes clave para hacer crecer tu negocio.
                     </p>
                     <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                        <a href="#contacto" class="group bg-gradient-to-r from-primary to-secondary text-white px-8 py-3 rounded-full font-bold text-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-2 shadow-lg">
-                            <i data-lucide="rocket" class="w-5 h-5 group-hover:scale-110 transition-transform"></i>
+                        <a href="#contacto" class="group bg-gradient-to-r from-primary to-secondary text-white px-6 md:px-8 py-3 rounded-full font-bold text-base md:text-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-2 shadow-lg">
+                            <i class="fas fa-rocket text-sm"></i>
                             Probar PizzApp
                         </a>
-                        <a href="#demo" class="border-2 border-gray-300 text-gray-700 px-8 py-3 rounded-full font-semibold hover:border-primary hover:text-primary transition-all duration-300 flex items-center justify-center gap-2">
-                            <i data-lucide="smartphone" class="w-5 h-5"></i>
+                        <a href="#demo" class="border-2 border-gray-300 text-gray-700 px-6 md:px-8 py-3 rounded-full font-semibold text-base md:text-lg hover:border-primary hover:text-primary transition-all duration-300 flex items-center justify-center gap-2">
+                            <i class="fas fa-mobile-alt"></i>
                             Ver Demo
                         </a>
                     </div>
                 </div>
 
-                <!-- TELÉFONO ÚNICO CON CARRUSEL AUTOMÁTICO -->
+                <!-- TELÉFONO CON CARRUSEL -->
                 <div class="relative mx-auto w-full max-w-md lg:max-w-none animate-on-scroll delay-200">
-                    <div class="absolute -top-10 -right-10 w-64 h-64 bg-secondary/10 rounded-full blur-3xl animate-pulse-slow"></div>
-                    <div class="absolute -bottom-10 -left-10 w-64 h-64 bg-primary/10 rounded-full blur-3xl animate-pulse-slow" style="animation-delay: 1s;"></div>
                     <div class="relative mx-auto w-[280px] sm:w-[320px]">
                         <div class="aspect-[9/16] bg-gray-900 rounded-[3rem] shadow-2xl border-[6px] border-gray-800 overflow-hidden relative">
                             <div class="absolute top-0 inset-x-0 h-7 bg-gray-900 flex justify-center items-center gap-2 z-20">
@@ -239,10 +249,16 @@
                             <div class="absolute bottom-2 left-1/2 -translate-x-1/2 w-24 h-1 bg-gray-700 rounded-full z-20"></div>
                             <div id="hero-carousel-container" class="relative w-full h-full overflow-hidden bg-white">
                                 <div id="hero-carousel-images" class="relative w-full h-full"></div>
-                                <button id="hero-prev" class="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-white/80 rounded-full flex items-center justify-center shadow-lg z-30 nav-btn"><i data-lucide="chevron-left" class="w-4 h-4"></i></button>
-                                <button id="hero-next" class="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-white/80 rounded-full flex items-center justify-center shadow-lg z-30 nav-btn"><i data-lucide="chevron-right" class="w-4 h-4"></i></button>
+                                <button id="hero-prev" class="absolute left-2 top-1/2 -translate-y-1/2 w-7 h-7 bg-white/80 rounded-full flex items-center justify-center shadow-lg z-30 nav-btn">
+                                    <i class="fas fa-chevron-left text-xs"></i>
+                                </button>
+                                <button id="hero-next" class="absolute right-2 top-1/2 -translate-y-1/2 w-7 h-7 bg-white/80 rounded-full flex items-center justify-center shadow-lg z-30 nav-btn">
+                                    <i class="fas fa-chevron-right text-xs"></i>
+                                </button>
                                 <div id="hero-dots" class="absolute bottom-4 left-0 right-0 flex justify-center gap-2 z-30"></div>
-                                <div class="absolute bottom-0 left-0 right-0 h-1 bg-gray-200 z-30"><div id="hero-progress-bar" class="h-full bg-gradient-to-r from-primary to-secondary transition-all duration-300" style="width: 0%"></div></div>
+                                <div class="absolute bottom-0 left-0 right-0 h-1 bg-gray-200 z-30">
+                                    <div id="hero-progress-bar" class="h-full bg-gradient-to-r from-primary to-secondary transition-all duration-300" style="width: 0%"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -254,11 +270,11 @@
     <!-- ==================== INDICADORES CLAVE ==================== -->
     <section class="py-12 bg-white border-y border-gray-100 shadow-sm relative z-10 pizza-bg-section">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-                <div class="animate-on-scroll"><div class="text-4xl font-extrabold gradient-text countup" data-target="24">0</div><p class="text-gray-500 text-sm mt-1">📈 Más eficiencia operativa</p></div>
-                <div class="animate-on-scroll delay-75"><div class="text-4xl font-extrabold text-primary countup" data-target="35">0</div><p class="text-gray-500 text-sm mt-1">✅ Menos errores en pedidos</p></div>
-                <div class="animate-on-scroll delay-150"><div class="text-4xl font-extrabold gradient-text countup" data-target="62">0</div><p class="text-gray-500 text-sm mt-1">💰 Reducción de pérdidas</p></div>
-                <div class="animate-on-scroll delay-300"><div class="text-4xl font-extrabold text-primary countup" data-target="98">0</div><p class="text-gray-500 text-sm mt-1">😊 Satisfacción del cliente</p></div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 text-center">
+                <div class="animate-on-scroll"><div class="text-3xl md:text-4xl font-extrabold gradient-text countup" data-target="24">0</div><p class="text-gray-500 text-xs md:text-sm mt-1">📈 Más eficiencia</p></div>
+                <div class="animate-on-scroll delay-75"><div class="text-3xl md:text-4xl font-extrabold text-primary countup" data-target="35">0</div><p class="text-gray-500 text-xs md:text-sm mt-1">✅ Menos errores</p></div>
+                <div class="animate-on-scroll delay-150"><div class="text-3xl md:text-4xl font-extrabold gradient-text countup" data-target="62">0</div><p class="text-gray-500 text-xs md:text-sm mt-1">💰 Reducción pérdidas</p></div>
+                <div class="animate-on-scroll delay-300"><div class="text-3xl md:text-4xl font-extrabold text-primary countup" data-target="98">0</div><p class="text-gray-500 text-xs md:text-sm mt-1">😊 Satisfacción</p></div>
             </div>
         </div>
     </section>
@@ -267,103 +283,110 @@
     <section id="problema" class="py-20 bg-dark text-white relative z-10">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 class="text-3xl md:text-4xl font-bold mb-6 animate-on-scroll">⚠️ El problema que resuelve PizzApp</h2>
-            <p class="text-xl text-gray-400 mb-12 animate-on-scroll delay-100 max-w-3xl mx-auto">Actualmente, muchas pizzerías gestionan pedidos e inventario de forma manual, lo que provoca errores, pérdida de insumos, retrasos y poca claridad para decidir.</p>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div class="bg-gray-800/60 p-6 rounded-2xl border border-gray-700 card-hover animate-on-scroll"><div class="w-12 h-12 bg-red-500/20 rounded-xl flex items-center justify-center text-red-400 mb-4"><i data-lucide="x-circle" class="w-6 h-6"></i></div><h3 class="text-xl font-bold mb-2">Errores en pedidos</h3><p class="text-gray-400 text-sm">La toma manual aumenta equivocaciones.</p></div>
-                <div class="bg-gray-800/60 p-6 rounded-2xl border border-gray-700 card-hover animate-on-scroll delay-100"><div class="w-12 h-12 bg-red-500/20 rounded-xl flex items-center justify-center text-red-400 mb-4"><i data-lucide="package-x" class="w-6 h-6"></i></div><h3 class="text-xl font-bold mb-2">Falta de inventario</h3><p class="text-gray-400 text-sm">Control deficiente de insumos.</p></div>
-                <div class="bg-gray-800/60 p-6 rounded-2xl border border-gray-700 card-hover animate-on-scroll delay-200"><div class="w-12 h-12 bg-red-500/20 rounded-xl flex items-center justify-center text-red-400 mb-4"><i data-lucide="trash-2" class="w-6 h-6"></i></div><h3 class="text-xl font-bold mb-2">Pérdida de insumos</h3><p class="text-gray-400 text-sm">Poca trazabilidad favorece desperdicios.</p></div>
-                <div class="bg-gray-800/60 p-6 rounded-2xl border border-gray-700 card-hover animate-on-scroll delay-300"><div class="w-12 h-12 bg-red-500/20 rounded-xl flex items-center justify-center text-red-400 mb-4"><i data-lucide="clock-3" class="w-6 h-6"></i></div><h3 class="text-xl font-bold mb-2">Atención lenta</h3><p class="text-gray-400 text-sm">Retrasos afectan la experiencia.</p></div>
+            <p class="text-lg md:text-xl text-gray-400 mb-12 animate-on-scroll max-w-3xl mx-auto">Actualmente, muchas pizzerías gestionan pedidos e inventario de forma manual, lo que provoca errores, pérdida de insumos, retrasos y poca claridad para decidir.</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
+                <div class="bg-gray-800/60 p-5 md:p-6 rounded-2xl border border-gray-700 card-hover animate-on-scroll">
+                    <div class="w-12 h-12 bg-red-500/20 rounded-xl flex items-center justify-center text-red-400 mb-4"><i class="fas fa-times-circle text-xl"></i></div>
+                    <h3 class="text-lg md:text-xl font-bold mb-2">Errores en pedidos</h3>
+                    <p class="text-gray-400 text-sm">La toma manual aumenta equivocaciones.</p>
+                </div>
+                <div class="bg-gray-800/60 p-5 md:p-6 rounded-2xl border border-gray-700 card-hover animate-on-scroll delay-100">
+                    <div class="w-12 h-12 bg-red-500/20 rounded-xl flex items-center justify-center text-red-400 mb-4"><i class="fas fa-boxes text-xl"></i></div>
+                    <h3 class="text-lg md:text-xl font-bold mb-2">Falta de inventario</h3>
+                    <p class="text-gray-400 text-sm">Control deficiente de insumos.</p>
+                </div>
+                <div class="bg-gray-800/60 p-5 md:p-6 rounded-2xl border border-gray-700 card-hover animate-on-scroll delay-200">
+                    <div class="w-12 h-12 bg-red-500/20 rounded-xl flex items-center justify-center text-red-400 mb-4"><i class="fas fa-trash-alt text-xl"></i></div>
+                    <h3 class="text-lg md:text-xl font-bold mb-2">Pérdida de insumos</h3>
+                    <p class="text-gray-400 text-sm">Poca trazabilidad favorece desperdicios.</p>
+                </div>
+                <div class="bg-gray-800/60 p-5 md:p-6 rounded-2xl border border-gray-700 card-hover animate-on-scroll delay-300">
+                    <div class="w-12 h-12 bg-red-500/20 rounded-xl flex items-center justify-center text-red-400 mb-4"><i class="fas fa-clock text-xl"></i></div>
+                    <h3 class="text-lg md:text-xl font-bold mb-2">Atención lenta</h3>
+                    <p class="text-gray-400 text-sm">Retrasos afectan la experiencia.</p>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- ==================== SOLUCIÓN ==================== -->
-    <section id="solucion" class="py-24 bg-white relative z-10 pizza-bg-section">
+    <section id="solucion" class="py-20 md:py-24 bg-white relative z-10 pizza-bg-section">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-16 animate-on-scroll">
+            <div class="text-center max-w-3xl mx-auto mb-12 md:mb-16 animate-on-scroll">
                 <span class="text-primary font-semibold tracking-wide uppercase text-sm mb-2 block">🎯 La solución</span>
                 <h2 class="text-3xl md:text-4xl font-bold text-dark mb-4">Una app híbrida para administrar la pizzería de forma inteligente</h2>
                 <p class="text-lg text-gray-600">PizzApp integra pedidos, inventario, clientes y reportes estadísticos en una sola plataforma.</p>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-                <div class="animate-on-scroll">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center">
+                <div class="animate-on-scroll order-2 md:order-1">
                     <h3 class="text-2xl font-bold mb-6">Beneficios principales</h3>
                     <ul class="space-y-4">
-                        <li class="flex items-center gap-3 text-gray-700 p-2 hover:bg-gray-50 rounded-xl transition-all"><div class="bg-green-100 p-1.5 rounded-full"><i data-lucide="check" class="text-green-600 w-4 h-4"></i></div>Reduce errores en el registro y seguimiento de pedidos.</li>
-                        <li class="flex items-center gap-3 text-gray-700 p-2 hover:bg-gray-50 rounded-xl transition-all"><div class="bg-green-100 p-1.5 rounded-full"><i data-lucide="check" class="text-green-600 w-4 h-4"></i></div>Mejora el control de ingredientes, stock y pérdidas.</li>
-                        <li class="flex items-center gap-3 text-gray-700 p-2 hover:bg-gray-50 rounded-xl transition-all"><div class="bg-green-100 p-1.5 rounded-full"><i data-lucide="check" class="text-green-600 w-4 h-4"></i></div>Permite visualizar reportes y métricas para decidir mejor.</li>
-                        <li class="flex items-center gap-3 text-gray-700 p-2 hover:bg-gray-50 rounded-xl transition-all"><div class="bg-green-100 p-1.5 rounded-full"><i data-lucide="check" class="text-green-600 w-4 h-4"></i></div>Fideliza clientes con promociones y sistema de puntos.</li>
+                        <li class="flex items-center gap-3 text-gray-700 p-2 hover:bg-gray-50 rounded-xl transition-all"><i class="fas fa-check-circle text-green-500 text-xl"></i><span>Reduce errores en el registro y seguimiento de pedidos.</span></li>
+                        <li class="flex items-center gap-3 text-gray-700 p-2 hover:bg-gray-50 rounded-xl transition-all"><i class="fas fa-check-circle text-green-500 text-xl"></i><span>Mejora el control de ingredientes, stock y pérdidas.</span></li>
+                        <li class="flex items-center gap-3 text-gray-700 p-2 hover:bg-gray-50 rounded-xl transition-all"><i class="fas fa-check-circle text-green-500 text-xl"></i><span>Permite visualizar reportes y métricas para decidir mejor.</span></li>
+                        <li class="flex items-center gap-3 text-gray-700 p-2 hover:bg-gray-50 rounded-xl transition-all"><i class="fas fa-check-circle text-green-500 text-xl"></i><span>Fideliza clientes con promociones y sistema de puntos.</span></li>
                     </ul>
                 </div>
-                <div class="animate-on-scroll delay-200">
+                <div class="order-1 md:order-2 animate-on-scroll delay-200">
                     <div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-4 shadow-xl border border-gray-100">
                         <img src="imagenes/WhatsApp%20Image%202026-06-13%20at%2010.02.24%20PM.jpeg" alt="Dashboard" class="w-full rounded-xl shadow-md">
-                        <p class="text-center text-gray-400 text-sm mt-3">📊 Panel de control y métricas en tiempo real</p>
+                        <p class="text-center text-gray-400 text-xs mt-3">📊 Panel de control y métricas</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ==================== DEMO CON MENÚ LATERAL (SIN TELÉFONO) ==================== -->
+    <!-- ==================== DEMO CON MENÚ LATERAL ==================== -->
     <section id="demo" class="py-20 bg-gray-50 relative z-10">
-        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12 animate-on-scroll">
                 <h2 class="text-3xl md:text-4xl font-bold text-dark mb-4">📱 Explorar la aplicación</h2>
-                <p class="text-gray-600 max-w-2xl mx-auto animate-on-scroll delay-100">Las capturas de pantalla cambian automáticamente cada 4 segundos. También puedes navegar manualmente con los botones.</p>
+                <p class="text-gray-600 max-w-2xl mx-auto">Las capturas cambian automáticamente cada 4 segundos. También puedes navegar manualmente.</p>
             </div>
 
             <div class="flex flex-col lg:flex-row gap-8 justify-center items-start">
-                <!-- Menú lateral mejorado -->
+                <!-- Menú lateral -->
                 <div class="bg-white rounded-2xl shadow-xl p-4 w-full lg:w-72 animate-on-scroll">
                     <div class="border-b border-gray-100 pb-3 mb-3 px-3">
                         <h3 class="font-bold text-gray-400 text-xs uppercase tracking-wider">📱 Menú principal</h3>
                     </div>
                     <nav class="space-y-1">
-                        <div class="app-menu-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-700 font-medium transition-all" data-screen="0">
-                            <i data-lucide="home" class="w-5 h-5"></i>
-                            <span>🏠 Inicio</span>
+                        <div class="app-menu-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-700 font-medium" data-screen="0">
+                            <i class="fas fa-home w-5"></i><span>🏠 Inicio</span>
                         </div>
-                        <div class="app-menu-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-700 font-medium transition-all" data-screen="4">
-                            <i data-lucide="shopping-cart" class="w-5 h-5"></i>
-                            <span>🛒 Mi Carrito</span>
+                        <div class="app-menu-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-700 font-medium" data-screen="4">
+                            <i class="fas fa-shopping-cart w-5"></i><span>🛒 Mi Carrito</span>
                         </div>
-                        <div class="app-menu-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-700 font-medium transition-all" data-screen="5">
-                            <i data-lucide="clipboard-list" class="w-5 h-5"></i>
-                            <span>📋 Mis Pedidos</span>
+                        <div class="app-menu-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-700 font-medium" data-screen="5">
+                            <i class="fas fa-clipboard-list w-5"></i><span>📋 Mis Pedidos</span>
                         </div>
-                        <div class="app-menu-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-700 font-medium transition-all" data-screen="2">
-                            <i data-lucide="settings" class="w-5 h-5"></i>
-                            <span>⚙️ Configuración</span>
+                        <div class="app-menu-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-700 font-medium" data-screen="2">
+                            <i class="fas fa-cog w-5"></i><span>⚙️ Configuración</span>
                         </div>
                     </nav>
                     <div class="border-t border-gray-100 pt-3 mt-3">
-                        <div class="app-menu-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-red-500 font-medium transition-all" data-screen="0">
-                            <i data-lucide="log-out" class="w-5 h-5"></i>
-                            <span>🚪 Cerrar Sesión</span>
+                        <div class="app-menu-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-red-500 font-medium" data-screen="0">
+                            <i class="fas fa-sign-out-alt w-5"></i><span>🚪 Cerrar Sesión</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Controles y vista previa -->
+                <!-- Contenedor de imagen -->
                 <div class="flex-1 bg-white rounded-2xl shadow-xl p-6 animate-on-scroll delay-100">
                     <div class="flex justify-center gap-4 mb-6">
                         <button id="demo-prev" class="nav-btn bg-gray-100 p-3 rounded-full shadow-md hover:bg-primary hover:text-white transition-all">
-                            <i data-lucide="chevron-left" class="w-5 h-5"></i>
+                            <i class="fas fa-chevron-left"></i>
                         </button>
                         <button id="demo-next" class="nav-btn bg-gray-100 p-3 rounded-full shadow-md hover:bg-primary hover:text-white transition-all">
-                            <i data-lucide="chevron-right" class="w-5 h-5"></i>
+                            <i class="fas fa-chevron-right"></i>
                         </button>
                     </div>
                     
-                    <!-- Contenedor de imagen grande -->
-                    <div id="demo-image-container" class="relative bg-gray-100 rounded-2xl overflow-hidden shadow-inner" style="min-height: 500px;">
-                        <div id="demo-carousel-images" class="relative w-full h-full">
-                            <!-- Las imágenes se cargan con JS -->
-                        </div>
+                    <div id="demo-image-container" class="relative bg-gray-100 rounded-2xl overflow-hidden shadow-inner" style="min-height: 450px;">
+                        <div id="demo-carousel-images" class="relative w-full h-full"></div>
                     </div>
                     
-                    <!-- Indicadores y título -->
                     <div class="flex justify-center gap-2 mt-4" id="demo-dots"></div>
                     <div class="text-center mt-4">
                         <p id="screen-title" class="text-sm font-semibold text-primary bg-gray-100 px-4 py-2 rounded-full inline-block shadow-sm">
@@ -379,19 +402,19 @@
     <section id="kpis" class="py-20 bg-white relative z-10 pizza-bg-section">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 class="text-3xl md:text-4xl font-bold text-dark mb-4 animate-on-scroll">📊 Métricas y KPIs del negocio</h2>
-            <p class="text-gray-600 mb-10 max-w-3xl mx-auto animate-on-scroll delay-100">Indicadores clave para medir tiempos, ventas, inventario, pérdidas y fidelización.</p>
-            <div class="flex flex-wrap justify-center gap-2 mb-10 animate-on-scroll delay-150">
-                <button data-tab="tab-pedidos" class="tab-btn px-5 py-2 rounded-full text-sm font-medium bg-gradient-to-r from-primary to-secondary text-white shadow-md">📋 Pedidos</button>
-                <button data-tab="tab-ventas" class="tab-btn px-5 py-2 rounded-full text-sm font-medium bg-gray-100 text-gray-600 hover:bg-primary/10 transition-all">💰 Ventas</button>
-                <button data-tab="tab-inventario" class="tab-btn px-5 py-2 rounded-full text-sm font-medium bg-gray-100 text-gray-600 hover:bg-primary/10 transition-all">📦 Inventario</button>
-                <button data-tab="tab-perdidas" class="tab-btn px-5 py-2 rounded-full text-sm font-medium bg-gray-100 text-gray-600 hover:bg-primary/10 transition-all">⚠️ Pérdidas</button>
-                <button data-tab="tab-clientes" class="tab-btn px-5 py-2 rounded-full text-sm font-medium bg-gray-100 text-gray-600 hover:bg-primary/10 transition-all">❤️ Clientes</button>
+            <p class="text-gray-600 mb-10 max-w-3xl mx-auto animate-on-scroll">Indicadores clave para medir tiempos, ventas, inventario, pérdidas y fidelización.</p>
+            <div class="flex flex-wrap justify-center gap-2 mb-10">
+                <button data-tab="tab-pedidos" class="tab-btn px-4 py-2 rounded-full text-sm font-medium bg-gradient-to-r from-primary to-secondary text-white shadow-md">📋 Pedidos</button>
+                <button data-tab="tab-ventas" class="tab-btn px-4 py-2 rounded-full text-sm font-medium bg-gray-100 text-gray-600">💰 Ventas</button>
+                <button data-tab="tab-inventario" class="tab-btn px-4 py-2 rounded-full text-sm font-medium bg-gray-100 text-gray-600">📦 Inventario</button>
+                <button data-tab="tab-perdidas" class="tab-btn px-4 py-2 rounded-full text-sm font-medium bg-gray-100 text-gray-600">⚠️ Pérdidas</button>
+                <button data-tab="tab-clientes" class="tab-btn px-4 py-2 rounded-full text-sm font-medium bg-gray-100 text-gray-600">❤️ Clientes</button>
             </div>
-            <div id="tab-pedidos" class="tab-content active"><div class="grid grid-cols-1 md:grid-cols-3 gap-6"><div class="bg-gray-50 p-6 rounded-xl card-hover"><h3 class="font-bold">⏱️ Tiempo promedio</h3><p class="text-gray-600 text-sm">de preparación de pedidos.</p></div><div class="bg-gray-50 p-6 rounded-xl card-hover"><h3 class="font-bold">✅ Pedidos a tiempo</h3><p class="text-gray-600 text-sm">Porcentaje dentro del objetivo.</p></div><div class="bg-gray-50 p-6 rounded-xl card-hover"><h3 class="font-bold">⚠️ Pedidos tardíos</h3><p class="text-gray-600 text-sm">Cantidad que superan el tiempo estimado.</p></div></div></div>
-            <div id="tab-ventas" class="tab-content"><div class="grid grid-cols-1 md:grid-cols-3 gap-6"><div class="bg-gray-50 p-6 rounded-xl card-hover"><h3 class="font-bold">🔥 Top productos</h3><p class="text-gray-600 text-sm">Los más vendidos de la semana.</p></div><div class="bg-gray-50 p-6 rounded-xl card-hover"><h3 class="font-bold">📈 Ranking mensual</h3><p class="text-gray-600 text-sm">Productos con mayor demanda.</p></div><div class="bg-gray-50 p-6 rounded-xl card-hover"><h3 class="font-bold">💵 Ingresos por producto</h3><p class="text-gray-600 text-sm">Rentabilidad de cada pizza.</p></div></div></div>
-            <div id="tab-inventario" class="tab-content"><div class="grid grid-cols-1 md:grid-cols-3 gap-6"><div class="bg-gray-50 p-6 rounded-xl card-hover"><h3 class="font-bold">📦 Stock disponible</h3><p class="text-gray-600 text-sm">Porcentaje de ingredientes clave.</p></div><div class="bg-gray-50 p-6 rounded-xl card-hover"><h3 class="font-bold">🔄 Reabastecimiento</h3><p class="text-gray-600 text-sm">Tiempo promedio para reponer.</p></div><div class="bg-gray-50 p-6 rounded-xl card-hover"><h3 class="font-bold">❌ Faltantes</h3><p class="text-gray-600 text-sm">Número de veces sin stock.</p></div></div></div>
-            <div id="tab-perdidas" class="tab-content"><div class="grid grid-cols-1 md:grid-cols-3 gap-6"><div class="bg-gray-50 p-6 rounded-xl card-hover"><h3 class="font-bold">🗑️ Caducidad</h3><p class="text-gray-600 text-sm">Porcentaje de ingredientes vencidos.</p></div><div class="bg-gray-50 p-6 rounded-xl card-hover"><h3 class="font-bold">💰 Costo de pérdida</h3><p class="text-gray-600 text-sm">Valor de productos desechados.</p></div><div class="bg-gray-50 p-6 rounded-xl card-hover"><h3 class="font-bold">📉 Insumos desechados</h3><p class="text-gray-600 text-sm">Cantidad total desperdiciada.</p></div></div></div>
-            <div id="tab-clientes" class="tab-content"><div class="grid grid-cols-1 md:grid-cols-3 gap-6"><div class="bg-gray-50 p-6 rounded-xl card-hover"><h3 class="font-bold">🔄 Recompra</h3><p class="text-gray-600 text-sm">Porcentaje de clientes que repiten.</p></div><div class="bg-gray-50 p-6 rounded-xl card-hover"><h3 class="font-bold">📊 Frecuencia</h3><p class="text-gray-600 text-sm">Compras promedio por cliente.</p></div><div class="bg-gray-50 p-6 rounded-xl card-hover"><h3 class="font-bold">👥 Nuevos vs recurrentes</h3><p class="text-gray-600 text-sm">Proporción de cada tipo.</p></div></div></div>
+            <div id="tab-pedidos" class="tab-content active"><div class="grid grid-cols-1 md:grid-cols-3 gap-5"><div class="bg-gray-50 p-6 rounded-xl card-hover"><h3 class="font-bold">⏱️ Tiempo promedio</h3><p class="text-gray-600 text-sm">de preparación</p></div><div class="bg-gray-50 p-6 rounded-xl card-hover"><h3 class="font-bold">✅ Pedidos a tiempo</h3><p class="text-gray-600 text-sm">dentro del objetivo</p></div><div class="bg-gray-50 p-6 rounded-xl card-hover"><h3 class="font-bold">⚠️ Pedidos tardíos</h3><p class="text-gray-600 text-sm">superan el tiempo</p></div></div></div>
+            <div id="tab-ventas" class="tab-content"><div class="grid grid-cols-1 md:grid-cols-3 gap-5"><div class="bg-gray-50 p-6 rounded-xl card-hover"><h3 class="font-bold">🔥 Top productos</h3><p class="text-gray-600 text-sm">más vendidos</p></div><div class="bg-gray-50 p-6 rounded-xl card-hover"><h3 class="font-bold">📈 Ranking mensual</h3><p class="text-gray-600 text-sm">mayor demanda</p></div><div class="bg-gray-50 p-6 rounded-xl card-hover"><h3 class="font-bold">💵 Ingresos por producto</h3><p class="text-gray-600 text-sm">rentabilidad</p></div></div></div>
+            <div id="tab-inventario" class="tab-content"><div class="grid grid-cols-1 md:grid-cols-3 gap-5"><div class="bg-gray-50 p-6 rounded-xl card-hover"><h3 class="font-bold">📦 Stock disponible</h3><p class="text-gray-600 text-sm">ingredientes clave</p></div><div class="bg-gray-50 p-6 rounded-xl card-hover"><h3 class="font-bold">🔄 Reabastecimiento</h3><p class="text-gray-600 text-sm">tiempo promedio</p></div><div class="bg-gray-50 p-6 rounded-xl card-hover"><h3 class="font-bold">❌ Faltantes</h3><p class="text-gray-600 text-sm">veces sin stock</p></div></div></div>
+            <div id="tab-perdidas" class="tab-content"><div class="grid grid-cols-1 md:grid-cols-3 gap-5"><div class="bg-gray-50 p-6 rounded-xl card-hover"><h3 class="font-bold">🗑️ Caducidad</h3><p class="text-gray-600 text-sm">ingredientes vencidos</p></div><div class="bg-gray-50 p-6 rounded-xl card-hover"><h3 class="font-bold">💰 Costo pérdida</h3><p class="text-gray-600 text-sm">valor desechado</p></div><div class="bg-gray-50 p-6 rounded-xl card-hover"><h3 class="font-bold">📉 Insumos desechados</h3><p class="text-gray-600 text-sm">cantidad total</p></div></div></div>
+            <div id="tab-clientes" class="tab-content"><div class="grid grid-cols-1 md:grid-cols-3 gap-5"><div class="bg-gray-50 p-6 rounded-xl card-hover"><h3 class="font-bold">🔄 Recompra</h3><p class="text-gray-600 text-sm">clientes que repiten</p></div><div class="bg-gray-50 p-6 rounded-xl card-hover"><h3 class="font-bold">📊 Frecuencia</h3><p class="text-gray-600 text-sm">compras por cliente</p></div><div class="bg-gray-50 p-6 rounded-xl card-hover"><h3 class="font-bold">👥 Nuevos vs recurrentes</h3><p class="text-gray-600 text-sm">proporción</p></div></div></div>
         </div>
     </section>
 
@@ -401,22 +424,22 @@
             <div class="text-center mb-12 animate-on-scroll">
                 <span class="text-primary font-semibold tracking-wide uppercase text-sm mb-2 block">🧮 Calculadora interactiva</span>
                 <h2 class="text-3xl md:text-4xl font-bold text-dark mb-4">¿Cuánto estás perdiendo?</h2>
-                <p class="text-gray-600 max-w-2xl mx-auto">Calcula el impacto financiero de gestionar pedidos e inventario en papel o Excel.</p>
+                <p class="text-gray-600">Calcula el impacto financiero de gestionar pedidos en papel o Excel.</p>
             </div>
             <div class="bg-white rounded-3xl shadow-2xl overflow-hidden animate-on-scroll">
                 <div class="grid grid-cols-1 md:grid-cols-2">
                     <div class="p-6 md:p-8 bg-white">
-                        <h3 class="text-xl font-bold text-dark mb-6">📝 Ingresa los datos de tu pizzería</h3>
+                        <h3 class="text-xl font-bold text-dark mb-6">📝 Datos de tu pizzería</h3>
                         <div class="space-y-6">
-                            <div><label class="block text-sm font-medium text-gray-700 mb-2">👨‍🍳 ¿Cuántos empleados/pizzeros tienes?</label><input type="range" id="empleados" min="1" max="20" value="5" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary"><div class="flex justify-between mt-2"><span>1</span><span id="empleados-valor" class="text-xl font-bold text-primary">5</span><span>20</span></div></div>
-                            <div><label class="block text-sm font-medium text-gray-700 mb-2">🍕 Pedidos atendidos por día</label><input type="range" id="pedidos" min="10" max="200" value="50" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary"><div class="flex justify-between mt-2"><span>10</span><span id="pedidos-valor" class="text-xl font-bold text-primary">50</span><span>200</span></div></div>
-                            <div><label class="block text-sm font-medium text-gray-700 mb-2">💰 Costo estimado por hora de trabajo (C$)</label><input type="range" id="costo" min="50" max="500" step="10" value="150" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary"><div class="flex justify-between mt-2"><span>C$50</span><span id="costo-valor" class="text-xl font-bold text-primary">C$150</span><span>C$500</span></div></div>
+                            <div><label class="block text-sm font-medium text-gray-700 mb-2">👨‍🍳 Empleados/pizzeros</label><input type="range" id="empleados" min="1" max="20" value="5" class="w-full"><div class="flex justify-between mt-2"><span>1</span><span id="empleados-valor" class="text-xl font-bold text-primary">5</span><span>20</span></div></div>
+                            <div><label class="block text-sm font-medium text-gray-700 mb-2">🍕 Pedidos por día</label><input type="range" id="pedidos" min="10" max="200" value="50" class="w-full"><div class="flex justify-between mt-2"><span>10</span><span id="pedidos-valor" class="text-xl font-bold text-primary">50</span><span>200</span></div></div>
+                            <div><label class="block text-sm font-medium text-gray-700 mb-2">💰 Costo por hora (C$)</label><input type="range" id="costo" min="50" max="500" step="10" value="150" class="w-full"><div class="flex justify-between mt-2"><span>C$50</span><span id="costo-valor" class="text-xl font-bold text-primary">C$150</span><span>C$500</span></div></div>
                         </div>
                     </div>
                     <div class="p-6 md:p-8 bg-gradient-to-br from-primary to-secondary text-white">
-                        <h3 class="text-xl font-bold mb-6">📉 Resultado de pérdida operativa</h3>
-                        <div class="text-center py-8"><p class="text-sm opacity-90 mb-2">Tus empleados pierden aproximadamente</p><div class="text-5xl font-extrabold mb-3" id="resultado-perdida">C$ 0</div><p class="text-sm opacity-90">al año en desorganización administrativa</p></div>
-                        <div class="border-t border-white/20 pt-6 mt-4"><p class="font-semibold text-center mb-3">🚀 ¡Detén las fugas en tu negocio!</p><a href="#contacto" class="block text-center bg-white text-primary px-6 py-3 rounded-full font-bold hover:shadow-lg transition-all">Digitaliza tu gestión hoy →</a></div>
+                        <h3 class="text-xl font-bold mb-6">📉 Pérdida operativa</h3>
+                        <div class="text-center py-8"><p class="text-sm opacity-90 mb-2">Tus empleados pierden aproximadamente</p><div class="text-4xl md:text-5xl font-extrabold mb-3" id="resultado-perdida">C$ 0</div><p class="text-sm opacity-90">al año en desorganización</p></div>
+                        <div class="border-t border-white/20 pt-6"><p class="font-semibold text-center mb-3">🚀 ¡Detén las fugas!</p><a href="#contacto" class="block text-center bg-white text-primary px-6 py-3 rounded-full font-bold hover:shadow-lg transition-all">Digitalizar gestión →</a></div>
                     </div>
                 </div>
             </div>
@@ -427,19 +450,19 @@
     <section class="py-20 bg-white relative z-10 pizza-bg-section">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 class="text-3xl md:text-4xl font-bold text-dark mb-4 animate-on-scroll">⚡ Tecnología de vanguardia</h2>
-            <p class="text-gray-600 max-w-3xl mx-auto mb-12 animate-on-scroll delay-100">Construida con un stack moderno, escalable y pensado para el rendimiento.</p>
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-4xl mx-auto mb-20">
-                <div class="bg-gray-50 p-6 rounded-xl card-hover animate-on-scroll"><i data-lucide="atom" class="w-10 h-10 text-primary mx-auto mb-3"></i><h3 class="font-bold text-lg">React</h3><p class="text-gray-600 text-sm">Interfaz dinámica y componentes reutilizables.</p></div>
-                <div class="bg-gray-50 p-6 rounded-xl card-hover animate-on-scroll delay-100"><i data-lucide="zap" class="w-10 h-10 text-primary mx-auto mb-3"></i><h3 class="font-bold text-lg">Vite</h3><p class="text-gray-600 text-sm">Compilación rápida y recarga en caliente.</p></div>
-                <div class="bg-gray-50 p-6 rounded-xl card-hover animate-on-scroll delay-200"><i data-lucide="database" class="w-10 h-10 text-primary mx-auto mb-3"></i><h3 class="font-bold text-lg">Supabase</h3><p class="text-gray-600 text-sm">Backend en la nube (BD, Auth, Storage).</p></div>
+            <p class="text-gray-600 max-w-3xl mx-auto mb-12 animate-on-scroll">Stack moderno, escalable y pensado para el rendimiento.</p>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl mx-auto mb-20">
+                <div class="bg-gray-50 p-6 rounded-xl card-hover animate-on-scroll"><i class="fas fa-atom text-4xl text-primary mx-auto mb-3 block"></i><h3 class="font-bold text-lg">React</h3><p class="text-gray-600 text-sm">Interfaz dinámica y componentes reutilizables.</p></div>
+                <div class="bg-gray-50 p-6 rounded-xl card-hover animate-on-scroll delay-100"><i class="fas fa-bolt text-4xl text-primary mx-auto mb-3 block"></i><h3 class="font-bold text-lg">Vite</h3><p class="text-gray-600 text-sm">Compilación rápida y recarga en caliente.</p></div>
+                <div class="bg-gray-50 p-6 rounded-xl card-hover animate-on-scroll delay-200"><i class="fas fa-database text-4xl text-primary mx-auto mb-3 block"></i><h3 class="font-bold text-lg">Supabase</h3><p class="text-gray-600 text-sm">Backend en la nube (BD, Auth, Storage).</p></div>
             </div>
 
             <h2 class="text-3xl md:text-4xl font-bold text-dark mb-4 animate-on-scroll">👥 Equipo del proyecto</h2>
-            <p class="text-gray-600 mb-12 max-w-3xl mx-auto animate-on-scroll delay-100">Estudiantes de Ingeniería en Sistemas de Información, Grupo 4.</p>
+            <p class="text-gray-600 mb-12 max-w-3xl mx-auto">Estudiantes de Ingeniería en Sistemas de Información, Grupo 4.</p>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
-                <div class="bg-gray-50 p-8 rounded-2xl shadow-md card-hover animate-on-scroll"><div class="w-28 h-28 mx-auto mb-6 rounded-full overflow-hidden border-4 border-primary/20 shadow-md"><img src="img/bryan.jpg.jpeg" alt="Bryan" class="w-full h-full object-cover"></div><h3 class="text-xl font-bold">Bryan Josué Bermúdez</h3><p class="text-primary text-sm mb-2">🎨 Frontend</p><p class="text-gray-500 text-sm">Interfaz visual y experiencia de usuario.</p></div>
-                <div class="bg-gray-50 p-8 rounded-2xl shadow-md card-hover animate-on-scroll delay-100"><div class="w-28 h-28 mx-auto mb-6 rounded-full overflow-hidden border-4 border-primary/20 shadow-md"><img src="img/xaviera.jpg.jpeg" alt="Julissa" class="w-full h-full object-cover"></div><h3 class="text-xl font-bold">Julissa Xaviera Pérez</h3><p class="text-primary text-sm mb-2">✅ QA / Diseño</p><p class="text-gray-500 text-sm">Validación y control de calidad.</p></div>
-                <div class="bg-gray-50 p-8 rounded-2xl shadow-md card-hover animate-on-scroll delay-200"><div class="w-28 h-28 mx-auto mb-6 rounded-full overflow-hidden border-4 border-primary/20 shadow-md"><img src="img/jeremy.jpg.jpeg" alt="Jeremy" class="w-full h-full object-cover"></div><h3 class="text-xl font-bold">Jeremy José Álvarez</h3><p class="text-primary text-sm mb-2">⚙️ Backend / Scrum</p><p class="text-gray-500 text-sm">Coordinación ágil y lógica funcional.</p></div>
+                <div class="bg-gray-50 p-6 md:p-8 rounded-2xl shadow-md card-hover animate-on-scroll"><div class="w-24 h-24 md:w-28 md:h-28 mx-auto mb-6 rounded-full overflow-hidden border-4 border-primary/20 shadow-md"><img src="img/bryan.jpg.jpeg" alt="Bryan" class="w-full h-full object-cover"></div><h3 class="text-lg md:text-xl font-bold">Bryan Josué Bermúdez</h3><p class="text-primary text-sm mb-2">🎨 Frontend</p><p class="text-gray-500 text-sm">Interfaz visual y experiencia de usuario.</p></div>
+                <div class="bg-gray-50 p-6 md:p-8 rounded-2xl shadow-md card-hover animate-on-scroll delay-100"><div class="w-24 h-24 md:w-28 md:h-28 mx-auto mb-6 rounded-full overflow-hidden border-4 border-primary/20 shadow-md"><img src="img/xaviera.jpg.jpeg" alt="Julissa" class="w-full h-full object-cover"></div><h3 class="text-lg md:text-xl font-bold">Julissa Xaviera Pérez</h3><p class="text-primary text-sm mb-2">✅ QA / Diseño</p><p class="text-gray-500 text-sm">Validación y control de calidad.</p></div>
+                <div class="bg-gray-50 p-6 md:p-8 rounded-2xl shadow-md card-hover animate-on-scroll delay-200"><div class="w-24 h-24 md:w-28 md:h-28 mx-auto mb-6 rounded-full overflow-hidden border-4 border-primary/20 shadow-md"><img src="img/jeremy.jpg.jpeg" alt="Jeremy" class="w-full h-full object-cover"></div><h3 class="text-lg md:text-xl font-bold">Jeremy José Álvarez</h3><p class="text-primary text-sm mb-2">⚙️ Backend / Scrum</p><p class="text-gray-500 text-sm">Coordinación ágil y lógica funcional.</p></div>
             </div>
         </div>
     </section>
@@ -448,46 +471,58 @@
     <section id="contacto" class="py-20 bg-gray-50 relative z-10">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                <div class="animate-on-scroll"><span class="text-primary font-semibold tracking-wide uppercase text-sm mb-2 block">📬 Contáctanos</span><h2 class="text-3xl md:text-4xl font-bold text-dark mb-4">¿Listo para transformar tu pizzería?</h2><p class="text-gray-600 mb-6 leading-relaxed">Completa el formulario y te responderemos con una demo personalizada.</p><div class="flex flex-col gap-3 text-gray-500"><div class="flex items-center gap-3"><i data-lucide="mail" class="w-5 h-5 text-primary"></i><span>soporte@pizzapp.com</span></div><div class="flex items-center gap-3"><i data-lucide="phone" class="w-5 h-5 text-primary"></i><span>+505 1234 5678</span></div><div class="flex items-center gap-3"><i data-lucide="map-pin" class="w-5 h-5 text-primary"></i><span>Chontales, Nicaragua</span></div></div></div>
-                <div class="bg-white p-6 md:p-8 rounded-2xl shadow-xl animate-on-scroll delay-100"><form id="contact-form" class="space-y-4"><div class="grid grid-cols-1 sm:grid-cols-2 gap-4"><input type="text" placeholder="Nombre" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary" required><input type="text" placeholder="Apellido" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary" required></div><input type="email" placeholder="Correo electrónico" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary" required><input type="tel" placeholder="Número de teléfono" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary" required><textarea rows="3" placeholder="Cuéntanos sobre tu negocio..." class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary"></textarea><button type="submit" class="w-full bg-gradient-to-r from-primary to-secondary text-white px-6 py-3 rounded-xl font-bold hover:shadow-xl transition-all">📨 Enviar mensaje →</button></form><p id="form-message" class="text-sm text-center mt-4 hidden"></p></div>
+                <div class="animate-on-scroll text-center lg:text-left">
+                    <span class="text-primary font-semibold tracking-wide uppercase text-sm mb-2 block">📬 Contáctanos</span>
+                    <h2 class="text-3xl md:text-4xl font-bold text-dark mb-4">¿Listo para transformar tu pizzería?</h2>
+                    <p class="text-gray-600 mb-6">Completa el formulario y te responderemos con una demo personalizada.</p>
+                    <div class="flex flex-col gap-3 items-center lg:items-start">
+                        <div class="flex items-center gap-3"><i class="fas fa-envelope text-primary"></i><span>soporte@pizzapp.com</span></div>
+                        <div class="flex items-center gap-3"><i class="fas fa-phone text-primary"></i><span>+505 1234 5678</span></div>
+                        <div class="flex items-center gap-3"><i class="fas fa-map-marker-alt text-primary"></i><span>Chontales, Nicaragua</span></div>
+                    </div>
+                </div>
+                <div class="bg-white p-6 md:p-8 rounded-2xl shadow-xl animate-on-scroll delay-100">
+                    <form id="contact-form" class="space-y-4">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4"><input type="text" placeholder="Nombre" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary" required><input type="text" placeholder="Apellido" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary" required></div>
+                        <input type="email" placeholder="Correo electrónico" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary" required>
+                        <input type="tel" placeholder="Teléfono" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary" required>
+                        <textarea rows="3" placeholder="Cuéntanos sobre tu negocio..." class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary"></textarea>
+                        <button type="submit" class="w-full bg-gradient-to-r from-primary to-secondary text-white px-6 py-3 rounded-xl font-bold hover:shadow-xl transition-all"><i class="fas fa-paper-plane mr-2"></i>Enviar mensaje →</button>
+                    </form>
+                    <p id="form-message" class="text-sm text-center mt-4 hidden"></p>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- ==================== CTA FINAL CON PIZZAS ==================== -->
-    <section class="py-20 bg-gradient-to-r from-primary to-secondary relative overflow-hidden">
-        <div class="absolute inset-0 flex justify-center items-center gap-6 opacity-10 pointer-events-none">
-            <span class="text-8xl animate-float">🍕</span>
-            <span class="text-7xl animate-float-slow">🍕</span>
-            <span class="text-9xl animate-float">🍕</span>
-            <span class="text-6xl animate-float-slow">🍕</span>
-            <span class="text-8xl animate-float">🍕</span>
-            <span class="text-7xl animate-float-slow">🍕</span>
+    <!-- ==================== CTA FINAL ==================== -->
+    <section class="py-16 md:py-20 bg-gradient-to-r from-primary to-secondary relative overflow-hidden">
+        <div class="absolute inset-0 flex justify-center items-center gap-4 opacity-10 pointer-events-none">
+            <span class="text-7xl animate-float">🍕</span><span class="text-6xl animate-float-slow">🍕</span><span class="text-8xl animate-float">🍕</span><span class="text-5xl animate-float-slow">🍕</span><span class="text-7xl animate-float">🍕</span>
         </div>
         <div class="max-w-4xl mx-auto px-4 text-center relative z-10">
-            <h2 class="text-3xl md:text-5xl font-bold text-white mb-4">🍕 Lleva tu pizzería al siguiente nivel</h2>
-            <p class="text-xl text-white/90 mb-8">PizzApp: la solución integral para organizar pedidos, inventario y clientes.</p>
-            <a href="#contacto" class="inline-block bg-white text-primary px-8 py-3 rounded-full font-bold hover:shadow-xl hover:-translate-y-1 transition-all duration-300">Solicitar acceso →</a>
-            <p class="text-white/70 text-sm mt-6">Proyecto académico con visión profesional y de crecimiento.</p>
+            <h2 class="text-2xl md:text-4xl font-bold text-white mb-4">🍕 Lleva tu pizzería al siguiente nivel</h2>
+            <p class="text-white/90 mb-6 md:mb-8">PizzApp: organización integral para pedidos, inventario y clientes.</p>
+            <a href="#contacto" class="inline-block bg-white text-primary px-6 md:px-8 py-3 rounded-full font-bold hover:shadow-xl hover:-translate-y-1 transition-all">Solicitar acceso →</a>
+            <p class="text-white/70 text-xs md:text-sm mt-6">Proyecto académico - UNAN-Managua, CUR Chontales</p>
         </div>
     </section>
 
     <!-- ==================== FOOTER ==================== -->
-    <footer class="bg-dark text-gray-400 pt-16 pb-8 relative z-10">
+    <footer class="bg-dark text-gray-400 pt-12 md:pt-16 pb-6 md:pb-8 relative z-10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 mb-12">
-                <div class="lg:col-span-2"><div class="flex items-center gap-2 mb-4"><div class="w-8 h-8 bg-gradient-to-r from-primary to-secondary rounded-xl flex items-center justify-center text-white">🍕</div><span class="font-bold text-xl text-white">Pizz<span class="text-primary">App</span></span></div><p class="text-sm">Gestión inteligente para pizzerías. Moderniza tu negocio con tecnología híbrida y datos accionables.</p></div>
-                <div><h4 class="text-white font-semibold mb-4">📱 Producto</h4><ul class="space-y-2 text-sm"><li><a href="#demo" class="hover:text-white transition">Demo</a></li><li><a href="#kpis" class="hover:text-white transition">KPIs</a></li><li><a href="#calculadora" class="hover:text-white transition">Calculadora</a></li></ul></div>
-                <div><h4 class="text-white font-semibold mb-4">📚 Recursos</h4><ul class="space-y-2 text-sm"><li><a href="#contacto" class="hover:text-white transition">Contacto</a></li></ul></div>
-                <div><h4 class="text-white font-semibold mb-4">👥 Equipo</h4><ul class="space-y-2 text-sm"><li><a href="#equipo" class="hover:text-white transition">Sobre nosotros</a></li></ul></div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 md:gap-10 mb-10 md:mb-12">
+                <div class="lg:col-span-2"><div class="flex items-center gap-2 mb-4"><div class="w-8 h-8 bg-gradient-to-r from-primary to-secondary rounded-xl flex items-center justify-center text-white">🍕</div><span class="font-bold text-xl text-white">Pizz<span class="text-primary">App</span></span></div><p class="text-sm">Gestión inteligente para pizzerías. Moderniza tu negocio con tecnología híbrida.</p></div>
+                <div><h4 class="text-white font-semibold mb-4">📱 Producto</h4><ul class="space-y-2 text-sm"><li><a href="#demo" class="hover:text-white">Demo</a></li><li><a href="#kpis" class="hover:text-white">KPIs</a></li><li><a href="#calculadora" class="hover:text-white">Calculadora</a></li></ul></div>
+                <div><h4 class="text-white font-semibold mb-4">📚 Recursos</h4><ul class="space-y-2 text-sm"><li><a href="#contacto" class="hover:text-white">Contacto</a></li></ul></div>
+                <div><h4 class="text-white font-semibold mb-4">👥 Equipo</h4><ul class="space-y-2 text-sm"><li><a href="#equipo" class="hover:text-white">Sobre nosotros</a></li></ul></div>
             </div>
-            <div class="border-t border-gray-800 pt-8 text-center text-xs"><p>© 2026 PizzApp - Grupo 4. Proyecto académico UNAN-Managua, CUR Chontales.</p><div class="flex justify-center gap-3 mt-2"><span>🍕</span><span>🍕</span><span>🍕</span><span>🍕</span></div></div>
+            <div class="border-t border-gray-800 pt-6 md:pt-8 text-center text-xs"><p>© 2026 PizzApp - Grupo 4. UNAN-Managua, CUR Chontales.</p><div class="flex justify-center gap-2 mt-2"><span>🍕</span><span>🍕</span><span>🍕</span></div></div>
         </div>
     </footer>
 
     <script>
-        lucide.createIcons();
-
+        // Lista de imágenes
         const images = [
             "imagenes/WhatsApp%20Image%202026-06-13%20at%2010.00.24%20PM.jpeg",
             "imagenes/WhatsApp%20Image%202026-06-13%20at%2010.01.56%20PM.jpeg",
@@ -496,13 +531,13 @@
             "imagenes/WhatsApp%20Image%202026-06-13%20at%2010.05.13%20PM.jpeg",
             "imagenes/WhatsApp%20Image%202026-06-13%20at%2010.06.16%20PM.jpeg"
         ];
-        const titles = ["Inicio", "Registro", "Dashboard", "Gestión de pedidos", "Carrito de compra", "Seguimiento de pedido"];
-        const AUTO_DELAY = 4000;
+        const titles = ["Inicio", "Registro", "Dashboard", "Gestión de pedidos", "Carrito", "Seguimiento"];
         let globalIndex = 0;
         let autoInterval;
+        const AUTO_DELAY = 4000;
 
-        function renderImages(containerId, imagesContainerId, dotsContainerId, titleContainerId) {
-            const container = document.getElementById(imagesContainerId);
+        function renderImages(containerId) {
+            const container = document.getElementById(containerId);
             if (!container) return;
             container.innerHTML = '';
             images.forEach((src, idx) => {
@@ -514,70 +549,45 @@
             });
         }
 
-        function updateDots(dotsContainerId) {
-            const dots = document.getElementById(dotsContainerId);
+        function updateDots(dotsId) {
+            const dots = document.getElementById(dotsId);
             if (!dots) return;
             dots.innerHTML = '';
             images.forEach((_, idx) => {
                 const dot = document.createElement('button');
-                dot.className = `h-2 rounded-full transition-all duration-300 ${idx === globalIndex ? 'bg-primary w-6' : 'bg-gray-300 w-2 hover:bg-gray-400'}`;
-                dot.addEventListener('click', () => {
-                    stopAuto();
-                    goToImage(idx);
-                    startAuto();
-                });
+                dot.className = `h-2 rounded-full transition-all duration-300 ${idx === globalIndex ? 'bg-primary w-6' : 'bg-gray-300 w-2'}`;
+                dot.addEventListener('click', () => { stopAuto(); goToImage(idx); startAuto(); });
                 dots.appendChild(dot);
             });
         }
 
-        function updateTitle(titleContainerId) {
-            const titleEl = document.getElementById(titleContainerId);
-            if (titleEl) {
-                titleEl.innerHTML = `<p class="text-sm font-semibold text-primary bg-gray-100 px-4 py-2 rounded-full inline-block shadow-sm">📱 ${titles[globalIndex]}</p>`;
-            }
+        function updateTitle() {
+            const titleEl = document.getElementById('screen-title');
+            if (titleEl) titleEl.innerHTML = `<span class="text-sm font-semibold text-primary bg-gray-100 px-4 py-2 rounded-full inline-block shadow-sm">📱 ${titles[globalIndex]}</span>`;
         }
 
         function goToImage(index) {
             globalIndex = index;
-            const container = document.getElementById('demo-carousel-images');
-            const heroContainer = document.getElementById('hero-carousel-images');
-            if (container) {
-                const imgs = container.querySelectorAll('img');
-                imgs.forEach((img, i) => {
-                    if (i === globalIndex) {
-                        img.classList.add('opacity-100', 'z-10');
-                        img.classList.remove('opacity-0', 'z-0');
-                    } else {
-                        img.classList.add('opacity-0', 'z-0');
-                        img.classList.remove('opacity-100', 'z-10');
-                    }
-                });
-            }
-            if (heroContainer) {
-                const heroImgs = heroContainer.querySelectorAll('img');
-                heroImgs.forEach((img, i) => {
-                    if (i === globalIndex) {
-                        img.classList.add('opacity-100', 'z-10');
-                        img.classList.remove('opacity-0', 'z-0');
-                    } else {
-                        img.classList.add('opacity-0', 'z-0');
-                        img.classList.remove('opacity-100', 'z-10');
-                    }
-                });
-            }
-            updateDots('demo-dots');
+            const containers = ['hero-carousel-images', 'demo-carousel-images'];
+            containers.forEach(id => {
+                const container = document.getElementById(id);
+                if (container) {
+                    const imgs = container.querySelectorAll('img');
+                    imgs.forEach((img, i) => {
+                        if (i === globalIndex) { img.classList.add('opacity-100', 'z-10'); img.classList.remove('opacity-0', 'z-0'); }
+                        else { img.classList.add('opacity-0', 'z-0'); img.classList.remove('opacity-100', 'z-10'); }
+                    });
+                }
+            });
             updateDots('hero-dots');
-            updateTitle('screen-title');
+            updateDots('demo-dots');
+            updateTitle();
             
-            // Actualizar barra de progreso del hero
-            const heroProgress = document.getElementById('hero-progress-bar');
-            if (heroProgress && autoInterval) {
-                heroProgress.style.transition = 'none';
-                heroProgress.style.width = '0%';
-                setTimeout(() => {
-                    heroProgress.style.transition = 'width 4s linear';
-                    heroProgress.style.width = '100%';
-                }, 10);
+            const progressBar = document.getElementById('hero-progress-bar');
+            if (progressBar && autoInterval) {
+                progressBar.style.transition = 'none';
+                progressBar.style.width = '0%';
+                setTimeout(() => { progressBar.style.transition = 'width 4s linear'; progressBar.style.width = '100%'; }, 10);
             }
         }
 
@@ -587,30 +597,22 @@
         function startAuto() {
             if (autoInterval) clearInterval(autoInterval);
             autoInterval = setInterval(() => nextImage(), AUTO_DELAY);
-            const heroProgress = document.getElementById('hero-progress-bar');
-            if (heroProgress) {
-                heroProgress.style.transition = 'none';
-                heroProgress.style.width = '0%';
-                setTimeout(() => {
-                    heroProgress.style.transition = 'width 4s linear';
-                    heroProgress.style.width = '100%';
-                }, 10);
+            const progressBar = document.getElementById('hero-progress-bar');
+            if (progressBar) {
+                progressBar.style.transition = 'none';
+                progressBar.style.width = '0%';
+                setTimeout(() => { progressBar.style.transition = 'width 4s linear'; progressBar.style.width = '100%'; }, 10);
             }
         }
         
-        function stopAuto() {
-            if (autoInterval) {
-                clearInterval(autoInterval);
-                autoInterval = null;
-            }
-        }
+        function stopAuto() { if (autoInterval) { clearInterval(autoInterval); autoInterval = null; } }
 
-        // Inicializar ambos carruseles
-        renderImages('hero-carousel-container', 'hero-carousel-images', 'hero-dots', null);
-        renderImages('demo-image-container', 'demo-carousel-images', 'demo-dots', 'screen-title');
+        // Inicializar
+        renderImages('hero-carousel-images');
+        renderImages('demo-carousel-images');
         updateDots('hero-dots');
         updateDots('demo-dots');
-        updateTitle('screen-title');
+        updateTitle();
         
         document.getElementById('hero-prev')?.addEventListener('click', () => { stopAuto(); prevImage(); startAuto(); });
         document.getElementById('hero-next')?.addEventListener('click', () => { stopAuto(); nextImage(); startAuto(); });
@@ -621,16 +623,12 @@
 
         // Menú lateral
         const menuItems = document.querySelectorAll('.app-menu-item');
-        menuItems.forEach((item, idx) => {
+        menuItems.forEach(item => {
             item.addEventListener('click', () => {
                 const screen = parseInt(item.getAttribute('data-screen'));
-                if (!isNaN(screen)) {
-                    stopAuto();
-                    goToImage(screen);
-                    startAuto();
-                    menuItems.forEach(mi => mi.classList.remove('active'));
-                    item.classList.add('active');
-                }
+                if (!isNaN(screen)) { stopAuto(); goToImage(screen); startAuto(); }
+                menuItems.forEach(mi => mi.classList.remove('active'));
+                item.classList.add('active');
             });
         });
 
@@ -644,11 +642,9 @@
             menuBtn.addEventListener('click', () => {
                 mobileMenu.classList.toggle('open');
                 body.classList.toggle('menu-open');
-                line1?.classList.toggle('rotate-45');
-                line1?.classList.toggle('translate-y-2');
+                line1?.classList.toggle('rotate-45'); line1?.classList.toggle('translate-y-2');
                 line2?.classList.toggle('opacity-0');
-                line3?.classList.toggle('-rotate-45');
-                line3?.classList.toggle('-translate-y-2');
+                line3?.classList.toggle('-rotate-45'); line3?.classList.toggle('-translate-y-2');
             });
             document.querySelectorAll('.menu-link').forEach(link => {
                 link.addEventListener('click', () => {
@@ -673,23 +669,23 @@
         });
 
         // Animaciones
-        const obs = new IntersectionObserver((entries) => {
-            entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-visible'); obs.unobserve(e.target); } });
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-visible'); observer.unobserve(e.target); } });
         }, { threshold: 0.15 });
-        document.querySelectorAll('.animate-on-scroll').forEach(el => obs.observe(el));
+        document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
 
         // Counters
-        const countObs = new IntersectionObserver((entries) => {
+        const countObserver = new IntersectionObserver((entries) => {
             entries.forEach(e => {
                 if (e.isIntersecting) {
                     const el = e.target, target = parseInt(el.getAttribute('data-target'));
-                    let curr = 0, inc = target/50;
+                    let curr = 0, inc = target / 50;
                     const update = () => { curr += inc; if (curr < target) { el.innerText = Math.ceil(curr); requestAnimationFrame(update); } else el.innerText = target; };
-                    update(); countObs.unobserve(el);
+                    update(); countObserver.unobserve(el);
                 }
             });
         }, { threshold: 0.5 });
-        document.querySelectorAll('.countup').forEach(el => countObs.observe(el));
+        document.querySelectorAll('.countup').forEach(el => countObserver.observe(el));
 
         // Calculadora
         function updateCalc() {
@@ -699,11 +695,11 @@
             document.getElementById('empleados-valor').innerText = emp;
             document.getElementById('pedidos-valor').innerText = ped;
             document.getElementById('costo-valor').innerText = `C$${cost}`;
-            const perdida = Math.round(parseInt(ped) * 300 * 5 * (parseInt(cost)/60));
-            const res = document.getElementById('resultado-perdida');
-            if (res) res.innerHTML = `C$${perdida.toLocaleString()}`;
+            const perdida = Math.round(parseInt(ped) * 300 * 5 * (parseInt(cost) / 60));
+            const resultEl = document.getElementById('resultado-perdida');
+            if (resultEl) resultEl.innerHTML = `C$${perdida.toLocaleString()}`;
         }
-        ['empleados', 'pedidos', 'costo'].forEach(id => { const el = document.getElementById(id); if(el) el.addEventListener('input', updateCalc); });
+        ['empleados', 'pedidos', 'costo'].forEach(id => { const el = document.getElementById(id); if (el) el.addEventListener('input', updateCalc); });
         updateCalc();
 
         // Tabs
@@ -714,17 +710,18 @@
                 tabs.forEach(t => { t.classList.remove('bg-gradient-to-r', 'from-primary', 'to-secondary', 'text-white', 'shadow-md'); t.classList.add('bg-gray-100', 'text-gray-600'); });
                 tab.classList.add('bg-gradient-to-r', 'from-primary', 'to-secondary', 'text-white', 'shadow-md');
                 document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-                const activeTab = document.getElementById(target);
-                if (activeTab) activeTab.classList.add('active');
+                const active = document.getElementById(target);
+                if (active) active.classList.add('active');
             });
         });
 
         // Formulario
-        const form = document.getElementById('contact-form'), msg = document.getElementById('form-message');
+        const form = document.getElementById('contact-form');
+        const msg = document.getElementById('form-message');
         if (form) {
             form.addEventListener('submit', (e) => {
                 e.preventDefault();
-                if (msg) { msg.classList.remove('hidden'); msg.classList.add('text-green-600'); msg.innerText = '✅ Mensaje enviado. Te contactaremos pronto.'; form.reset(); setTimeout(() => msg.classList.add('hidden'), 5000); }
+                if (msg) { msg.classList.remove('hidden'); msg.classList.add('text-green-600'); msg.innerHTML = '<i class="fas fa-check-circle mr-1"></i> Mensaje enviado. Te contactaremos pronto.'; form.reset(); setTimeout(() => msg.classList.add('hidden'), 5000); }
             });
         }
     </script>
